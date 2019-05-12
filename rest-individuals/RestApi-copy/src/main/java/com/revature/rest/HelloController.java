@@ -44,7 +44,7 @@ public class HelloController {
 	public Player sayHelloName(@QueryParam("name") String name) {
 		
 		PlayerImp playersImp=new PlayerImp();
-		List<Player> players=new ArrayList<Player>();
+		List<Player> players=new ArrayList<>();
 		Player p=new Player();
 		players=playersImp.getAllPlayers();
 		for(Player player:players){
@@ -60,7 +60,7 @@ public class HelloController {
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Player> getPrince() {
 		PlayerImp playersImp=new PlayerImp();
-		List<Player> players=new ArrayList<Player>();
+		List<Player> players=new ArrayList<>();
 		players=playersImp.getAllPlayers();
 
 	

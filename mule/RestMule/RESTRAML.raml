@@ -1,0 +1,38 @@
+#%RAML 0.8
+#%RAML 1.0
+---
+title: Fantasy Player API
+baseUri: http://localhost:4242/rest
+version: v1
+
+/fantasy:
+  /player:
+    get:
+    
+    
+  /positon:
+  /individual:
+      /{playerName}:
+        get:
+          description: Retrieves information on individual player
+          responses:
+              200:
+                body:
+                  application/json:
+                    example: |
+                     {
+                        data:{ 
+                        
+                                "f_team":"revature",
+                                "firstname":"Andrew",
+                                "fps":20.95,
+                                "lastname":"Luck",
+                                "player_id":12,
+                                "position":"QB",
+                                "r_team":"IND"
+                              },
+                              "success": true,
+                              "status": 200
+                       }
+  
+  

@@ -1,7 +1,6 @@
 package com.revature.rest;
 
 import java.sql.Connection;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,7 +12,7 @@ import java.util.List;
 
 public class PlayerImp implements PostgresImp {
 	public List<Player> getAllPlayers() {
-		List<Player> players = new ArrayList<Player>();
+		List<Player> players = new ArrayList<>();
 		Connection connection = null;
 		Statement stmt = null;
 
