@@ -17,7 +17,7 @@ REST EndPoints:
 /rest/fantasy/{id}-gets player with specified ID
 
 
-/rest/fantasy/{TeamName,playerId}-Updates player fantasy team
+/rest/Draft/{TeamName,playerId}-Updates player fantasy team
 
 
 /rest/{team}-gets all players on specified team
