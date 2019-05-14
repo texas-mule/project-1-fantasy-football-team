@@ -20,6 +20,7 @@ import org.json.simple.parser.ParseException;
 
 @Path("/fantasy")
 public class FantasyController {
+	
 	@GET
 	@Path("/{position}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -37,6 +38,7 @@ public class FantasyController {
 		}
 		return p_player;
 	}
+	
 	@GET
 	@Path("/individual")
 	@Produces(MediaType.APPLICATION_JSON)
