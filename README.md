@@ -17,7 +17,7 @@ REST EndPoints:
 /rest/fantasy/{id}-gets player with specified ID
 
 
-/rest/fantasy/{draftInfo}-Updates player fantasy team
+/rest/fantasy/{TeamName,playerId}-Updates player fantasy team
 
 
 /rest/{team}-gets all players on specified team
@@ -37,4 +37,8 @@ Releasing: updating the players fantasy team to show that they are a free agent 
 
 Idea:
 
-We will have a Soap and a rest Api 
+ -Soap Api that contains the fantasy teams
+ -A Rest Api that will contain the player along with player Info
+ -We will use mule to communicate with the Soap and rest to get the player in to teams
+ -We will simulate a fantasy season through mule
+ 
