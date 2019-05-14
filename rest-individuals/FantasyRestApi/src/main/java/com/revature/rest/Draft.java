@@ -9,24 +9,23 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-@Path("/team")
-public class FantasyTeam {
+@Path("/draft")
+public class Draft {
 	@GET
-	@Path("/{team}")
+	@Path("/d")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Player> team(@PathParam("team") String team) {
+	public List<Player> position(@PathParam("position") String position) {
 		PlayerImp playersImp=new PlayerImp();
 		List<Player> players=new ArrayList<Player>();
 		List<Player> p_player=new ArrayList<Player>();
 		Player p=new Player();
 		players=playersImp.getAllPlayers();
 		for(Player player:players){
-			if(player.getF_team().equals(team)){
+			if(player.getPosition().equals(position)){
 				p_player.add(player);
 				
 			}
 		}
 		return p_player;
 	}
-
 }
