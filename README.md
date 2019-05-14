@@ -38,7 +38,10 @@ Releasing: updating the players fantasy team to show that they are a free agent 
 Idea:
 
  -Soap Api that contains the fantasy teams
+ 
  -A Rest Api that will contain the player along with player Info
+ 
  -We will use mule to communicate with the Soap and rest to get the player in to teams
+ 
  -We will simulate a fantasy season through mule
  
