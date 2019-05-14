@@ -58,7 +58,7 @@ public class FantasyController {
 		
 	
 	@GET
-	@Path("/player")
+	@Path("/players")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Player> getPrince() {
 		PlayerImp playersImp=new PlayerImp();
