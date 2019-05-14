@@ -47,7 +47,7 @@ public class FantasyController {
 		Player p=new Player();
 		players=playersImp.getAllPlayers();
 		for(Player player:players){
-			if(player.getFirstname().equals(name)){
+			if(player.getFirstname().equals(name)||player.getLastname().equals(name)){
 				p=player;
 			}
 		}
