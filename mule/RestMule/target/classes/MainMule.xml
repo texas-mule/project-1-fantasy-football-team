@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:metadata="http://www.mulesoft.org/schema/mule/metadata" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd">
+    <http:listener-config name="HTTP_Listener_Configuration" host="localhost" port="8080" doc:name="HTTP Listener Configuration" basePath="/mule"/>
+    <http:request-config name="HTTP_Request_Configuration" host="localhost" port="4242"  doc:name="HTTP Request Configuration" basePath="/rest/v1"/>
+    <http:listener-config name="HTTP_Listener_Configuration1" host="0.0.0.0" port="8081" doc:name="HTTP Listener Configuration"/>
+    <flow name="ShowAllPlayers" initialState="started" doc:description="works">
+        <http:listener config-ref="HTTP_Listener_Configuration" path="/draft" allowedMethods="GET" doc:name="HTTP"/>
+        <http:request config-ref="HTTP_Request_Configuration" path="/fantasy/player" method="GET" doc:name="REST"/>
+    </flow>
+    <flow name="PlayersPositions">
+        <http:listener config-ref="HTTP_Listener_Configuration" path="/playersinposition/{position}" allowedMethods="GET, POST" doc:name="HTTP"/>
+        <set-variable variableName="position" value="#[message.inboundProperties.'http.uri.params'.position]" doc:name="Position" metadata:id="3a946f96-0ce2-4f87-81a9-7606f12f2787"/>
+        <http:request config-ref="HTTP_Request_Configuration" path="/fantasy/{position}" method="GET" doc:name="REST">
+            <http:request-builder>
+                <http:uri-param paramName="position" value="#[flowVars.position]"/>
+            </http:request-builder>
+        </http:request>
+    </flow>
+    <flow name="Draft">
+        <http:listener config-ref="HTTP_Listener_Configuration" path="/freeagents/draft/{teamname}/{playerid}" doc:name="HTTP"/>
+        <http:request config-ref="HTTP_Request_Configuration" path="/" method="GET, POST" doc:name="REST"/>
+    </flow>
+    <flow name="MainMuleFlow">
+        <http:listener config-ref="HTTP_Listener_Configuration1" path="/rest" allowedMethods="GET" doc:name="HTTP"/>
+        <http:request config-ref="HTTP_Request_Configuration" path="/player" method="GET" doc:name="HTTP"/>
+    </flow>
+</mule>
