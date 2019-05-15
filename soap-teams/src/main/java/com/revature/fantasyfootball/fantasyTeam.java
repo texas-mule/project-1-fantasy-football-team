@@ -2,13 +2,28 @@ package com.revature.fantasyfootball;
 
 import java.math.BigDecimal;
 
-public class fantasyTeam {
+class fantasyTeam {
 	
 	private int teamIndicator;
 	private String teamName;
 	private int teamRank;
+	private int teamWins;
+	private int teamLoss;
 	private BigDecimal teamFPS;
 	
+	
+	public int getTeamWins() {
+		return teamWins;
+	}
+	public void setTeamWins(int teamWins) {
+		this.teamWins = teamWins;
+	}
+	public int getTeamLoss() {
+		return teamLoss;
+	}
+	public void setTeamLoss(int teamLoss) {
+		this.teamLoss = teamLoss;
+	}
 	public int getTeamIndicator() {
 		return teamIndicator;
 	}
@@ -34,4 +49,7 @@ public class fantasyTeam {
 		this.teamFPS = teamFPS;
 	}
 	
+	public void teamHasWon() {
+		this.teamWins++;
+	}
 }
