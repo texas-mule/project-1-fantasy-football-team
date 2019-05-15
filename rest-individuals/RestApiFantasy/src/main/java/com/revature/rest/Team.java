@@ -23,7 +23,7 @@ public class Team {
 		Player p=new Player();
 		players=playersImp.getAllPlayers();
 		for(Player player:players){
-			if(player.getF_team().equals(teams)){
+			if(player.getF_team().equalsIgnoreCase(teams)){
 				p_players.add(player);
 			}
 		}
