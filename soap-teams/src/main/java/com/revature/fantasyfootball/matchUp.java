@@ -13,6 +13,7 @@ public class matchUp {
 	String victor;
 	
 	ArrayList<fantasyTeam> fantasyTeams = new ArrayList();
+	ArrayList<Integer> chosenTeams = new ArrayList();
 	
 	HashMap<Integer, Integer> chosenMatchUps = new HashMap<>();
 	
@@ -21,12 +22,9 @@ public class matchUp {
 		fantasyTeams=league.retrieveTeams();
 	}
 	
-	ArrayList<Integer> chosenTeams = new ArrayList();
-	
 	public void weekOne() {
 		
 		setLeague();
-		
 		int arraySize = fantasyTeams.size();
 		
 		ArrayList<Integer> availableTeams = new ArrayList();
@@ -36,14 +34,19 @@ public class matchUp {
 		}
 		
 		gameMatch(availableTeams, arraySize, chosenMatchUps);
-		
 		System.out.println(availableTeams);
+
+		gameMatch(availableTeams, arraySize, chosenMatchUps);
+		System.out.println(availableTeams);
+		
+		gameMatch(availableTeams, arraySize, chosenMatchUps);
+		
 		
 	}
 
 
 	private void gameMatch(ArrayList<Integer> availableTeams, int arraySize, HashMap<Integer, Integer> chosenMatchUps) {
-		
+		System.out.println("Here1");
 		int team = getRandomTeam(availableTeams, arraySize);
 		
 		teamOne = fantasyTeams.get(team).getTeamName();
@@ -54,6 +57,8 @@ public class matchUp {
 		availableTeams.remove(team);
 		
 		System.out.println(teamOne +" vs. "+ teamTwo);
+		
+		System.out.println("Here2");
 	}
 
 
