@@ -14,7 +14,7 @@ public class Draft {
 	public String draft(@PathParam("id") int id,@PathParam("fteam") String fteam){
 		PlayerImp playerImp=new PlayerImp();
 		playerImp.draftPlayer(id, fteam);
-		return "Draft Successful!";
+		return "Picked Succesful!";
 		
 	}
 
