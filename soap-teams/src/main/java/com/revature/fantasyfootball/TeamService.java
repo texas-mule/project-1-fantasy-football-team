@@ -10,18 +10,13 @@ import javax.swing.text.html.HTMLDocument.Iterator;
  public class TeamService {
 	
 	@WebMethod
-	public void displayTeams() {
+	public ArrayList<fantasyTeam> displayTeams() {
 		ArrayList<fantasyTeam> fantasyTeams = new ArrayList();
 		DataConnect display = new DataConnect();
 		fantasyTeams = display.retrieveTeams();
 		java.util.Iterator<fantasyTeam> teamIterator = fantasyTeams.iterator();
 		
-		System.out.println("Current Teams Include: ");
-		
-		while(teamIterator.hasNext()) {
-			System.out.println(teamIterator.next().getTeamName() + " ");
-		}
-		
+		return fantasyTeams;
 	}
 	
 	@WebMethod

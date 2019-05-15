@@ -53,8 +53,7 @@ class DataConnect {
 		           // System.out.println(fantasyTeams.get(teamIndicator).getTeamName());
 		            teamIndicator++;
 		       }		       
-		        rs.close();
-		        st.close();
+		        db.close();
 		    } catch (java.sql.SQLException e) {
 		            System.out.println(e.getMessage());
 		      }
