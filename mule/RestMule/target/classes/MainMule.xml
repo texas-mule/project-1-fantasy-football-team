@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:ws="http://www.mulesoft.org/schema/mule/ws" xmlns:apikit-soap="http://www.mulesoft.org/schema/mule/apikit-soap" xmlns:metadata="http://www.mulesoft.org/schema/mule/metadata" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+<mule xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:ws="http://www.mulesoft.org/schema/mule/ws" xmlns:apikit-soap="http://www.mulesoft.org/schema/mule/apikit-soap" xmlns:metadata="http://www.mulesoft.org/schema/mule/metadata" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
 	xmlns:spring="http://www.springframework.org/schema/beans" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
@@ -8,7 +8,8 @@ http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/cor
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
 http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
 http://www.mulesoft.org/schema/mule/apikit-soap http://www.mulesoft.org/schema/mule/apikit-soap/current/mule-apikit-soap.xsd
-http://www.mulesoft.org/schema/mule/ws http://www.mulesoft.org/schema/mule/ws/current/mule-ws.xsd">
+http://www.mulesoft.org/schema/mule/ws http://www.mulesoft.org/schema/mule/ws/current/mule-ws.xsd
+http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd">
     <http:listener-config name="HTTP_Listener_Configuration" host="localhost" port="8080" doc:name="HTTP Listener Configuration" basePath="/mule"/>
 	<http:request-config name="HTTP_Request_Configuration" host="localhost" port="4242"  doc:name="HTTP Request Configuration" basePath="/rest/v1"/>
     <http:listener-config name="HTTP_Listener_Configuration1" host="0.0.0.0" port="8081" doc:name="HTTP Listener Configuration"/>
@@ -18,12 +19,6 @@ http://www.mulesoft.org/schema/mule/ws http://www.mulesoft.org/schema/mule/ws/cu
     <flow name="ShowAllPlayers" initialState="started" doc:description="works">
         <http:listener config-ref="HTTP_Listener_Configuration" path="/draft" allowedMethods="GET" doc:name="HTTP"/>
         <http:request config-ref="HTTP_Request_Configuration" path="/fantasy/player" method="GET" doc:name="REST"/>
-    </flow>
-    <flow name="Teams">
-        <http:listener config-ref="HTTP_Listener_Configuration" path="/teams" allowedMethods="GET" doc:name="HTTP"/>
-        <response>
-            <ws:consumer config-ref="Web_Service_Consumer" operation="displayTeams" doc:name="Web Service Consumer"/>
-        </response>
     </flow>
     <flow name="FreeAgentsDraft">
         <http:listener config-ref="HTTP_Listener_Configuration" path="/freeagents/draft/{teamname}/{playerid}" allowedMethods="GET" doc:name="HTTP"/>
@@ -37,15 +32,22 @@ http://www.mulesoft.org/schema/mule/ws http://www.mulesoft.org/schema/mule/ws/cu
         </http:request>
     </flow>
     <flow name="FreeAgentsRelease">
-        <http:listener config-ref="HTTP_Listener_Configuration" path="/freeagents/release/{teamname}/{playerid}" allowedMethods="GET" doc:name="HTTP"/>
-        <set-variable variableName="teamname" value="#[message.inboundProperties.'http.uri.params'.teamname]" doc:name="TeamName"/>
+        <http:listener config-ref="HTTP_Listener_Configuration" path="/freeagents/release/{playerid}" allowedMethods="GET" doc:name="HTTP"/>
         <set-variable variableName="playerid" value="#[message.inboundProperties.'http.uri.params'.playerid]" doc:name="PlayerId"/>
-        <http:request config-ref="HTTP_Request_Configuration" path="/release/{playerid}/{teamname}" method="GET" doc:name="REST">
+        <http:request config-ref="HTTP_Request_Configuration" path="/draft/{playerid}/freeagent" method="GET" doc:name="REST">
             <http:request-builder>
-                <http:uri-param paramName="teamname" value="#[flowVars.teamname]"/>
                 <http:uri-param paramName="playerid" value="#[flowVars.playerid]"/>
             </http:request-builder>
         </http:request>
+    </flow>
+    <flow name="Teams">
+        <http:listener config-ref="HTTP_Listener_Configuration" path="/teams" allowedMethods="GET" doc:name="HTTP"/>
+        <response>
+            <json:xml-to-json-transformer doc:name="XML to JSON"/>
+        </response>
+        <response>
+            <ws:consumer config-ref="Web_Service_Consumer" operation="displayTeams" doc:name="Web Service Consumer"/>
+        </response>
     </flow>
     <flow name="MuleCheck">
         <http:listener config-ref="HTTP_Listener_Configuration" path="/ready" doc:name="HTTP"/>
@@ -63,6 +65,13 @@ http://www.mulesoft.org/schema/mule/ws http://www.mulesoft.org/schema/mule/ws/cu
     <flow name="Draft">
         <http:listener config-ref="HTTP_Listener_Configuration" path="/freeagents/draft/{teamname}/{playerid}" doc:name="HTTP"/>
         <http:request config-ref="HTTP_Request_Configuration" path="/" method="GET, POST" doc:name="REST"/>
+    </flow>
+    <flow name="JSONGetSimWeek">
+        <http:listener config-ref="HTTP_Listener_Configuration" path="/getsimweek" allowedMethods="GET" doc:name="HTTP"/>
+        <http:request config-ref="HTTP_Request_Configuration" path="/simweek" method="GET" doc:name="HTTP"/>
+        <response>
+            <json:json-to-xml-transformer doc:name="JSON to XML"/>
+        </response>
     </flow>
     <flow name="MainMuleFlow">
         <http:listener config-ref="HTTP_Listener_Configuration1" path="/rest" allowedMethods="GET" doc:name="HTTP"/>
