@@ -66,7 +66,6 @@ public class PlayerImp implements PostgresImp {
 		int affectedrows = 0;
 		Player player=new Player();
 		System.out.println(f_team+" "+id);
-		 
         try {
         	connection = Postgres.getConnection();
         	pstmt = connection.prepareStatement(sql);

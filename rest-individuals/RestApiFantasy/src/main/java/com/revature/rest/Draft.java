@@ -1,6 +1,8 @@
 package com.revature.rest;
 
+
 import java.util.List;
+
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -26,7 +28,8 @@ public class Draft {
 		player.setF_team(fteam);
 		return player;
 		
-		
-	}
 
+	
+
+}
 }

@@ -1,14 +1,21 @@
 package com.revature.fantasyfootball;
 
+<<<<<<< HEAD
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+=======
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+>>>>>>> fe434bb5f397172f6cc8843347788616860320c5
 import java.sql.Statement;
 import java.util.ArrayList;
 
 import com.revature.fantasyfootball.fantasyTeam;
+<<<<<<< HEAD
 public class DataConnect {
 	
 	public static void retrieveTeams() {
@@ -16,6 +23,14 @@ public class DataConnect {
 		fantasyTeam team = new fantasyTeam();
 		
 		ArrayList fantasyTeams = new ArrayList();
+=======
+
+class DataConnect {
+	
+	public ArrayList<fantasyTeam> retrieveTeams() {
+		
+		ArrayList<fantasyTeam> fantasyTeams = new ArrayList<fantasyTeam>();
+>>>>>>> fe434bb5f397172f6cc8843347788616860320c5
 		
 		String url = "jdbc:postgresql://hansken.db.elephantsql.com:5432/wzdpteqa";
 		String username = "wzdpteqa";
@@ -30,6 +45,7 @@ public class DataConnect {
 		    try {
 		    	Connection db = DriverManager.getConnection(url, username, password);
 		        Statement st = db.createStatement();
+<<<<<<< HEAD
 		        ResultSet rs = st.executeQuery("SELECT * FROM teams");
 		        ResultSetMetaData rsmd = rs.getMetaData();
 		        
@@ -59,6 +75,31 @@ public class DataConnect {
 		    } catch (java.sql.SQLException e) {
 		            System.out.println(e.getMessage());
 		      }
+=======
+		        ResultSet rs = st.executeQuery("SELECT * FROM teams ORDER BY rank");
+		        while(rs.next()) {
+		        	
+		    	   int rowIndicator= 1;
+		    	   fantasyTeam team = new fantasyTeam();
+		    	   team.setTeamIndicator(rs.getInt(1));
+		    	   team.setTeamName(rs.getString(2));
+		    	   team.setTeamRank(rs.getInt(3));
+		    	   team.setTeamWins(rs.getInt(4));
+		    	   team.setTeamLoss(rs.getInt(5));
+		    	   team.setTeamFPS(rs.getBigDecimal(6));
+		        	
+		    	   while(rowIndicator==1) {
+		    		   fantasyTeams.add(team);
+		    		   rowIndicator++;
+					}
+		        }
+		        db.close();
+		    } catch (java.sql.SQLException e) {
+		            System.out.println(e.getMessage());
+		    }
+		    
+		    return fantasyTeams;
+>>>>>>> fe434bb5f397172f6cc8843347788616860320c5
 	}
 
 }
