@@ -62,9 +62,10 @@ public class PlayerImp implements PostgresImp {
 	public void draftPlayer(int id, String f_team){
 		Connection connection=null;
 		PreparedStatement pstmt = null;
-		String sql="UPDATE players SET fteam = ? WHERE player_id=?";
+		String sql="UPDATE players SET fteam = ? WHERE player_id = ?";
 		int affectedrows = 0;
 		Player player=new Player();
+		System.out.println(f_team+" "+id);
 		 
         try {
         	connection = Postgres.getConnection();
