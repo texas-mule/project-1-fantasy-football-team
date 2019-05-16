@@ -2,10 +2,14 @@
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 <mule xmlns:metadata="http://www.mulesoft.org/schema/mule/metadata" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
 =======
 <mule xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:ws="http://www.mulesoft.org/schema/mule/ws" xmlns:apikit-soap="http://www.mulesoft.org/schema/mule/apikit-soap" xmlns:metadata="http://www.mulesoft.org/schema/mule/metadata" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
 >>>>>>> fe434bb5f397172f6cc8843347788616860320c5
+=======
+<mule xmlns:ws="http://www.mulesoft.org/schema/mule/ws" xmlns:apikit-soap="http://www.mulesoft.org/schema/mule/apikit-soap" xmlns:metadata="http://www.mulesoft.org/schema/mule/metadata" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+>>>>>>> parent of d089772... added mule flows
 =======
 <mule xmlns:ws="http://www.mulesoft.org/schema/mule/ws" xmlns:apikit-soap="http://www.mulesoft.org/schema/mule/apikit-soap" xmlns:metadata="http://www.mulesoft.org/schema/mule/metadata" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
 >>>>>>> parent of d089772... added mule flows
@@ -36,14 +40,20 @@ http://www.mulesoft.org/schema/mule/ws http://www.mulesoft.org/schema/mule/ws/cu
     </flow>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
+=======
+>>>>>>> parent of d089772... added mule flows
     <flow name="Teams">
         <http:listener config-ref="HTTP_Listener_Configuration" path="/teams" allowedMethods="GET" doc:name="HTTP"/>
         <response>
             <ws:consumer config-ref="Web_Service_Consumer" operation="displayTeams" doc:name="Web Service Consumer"/>
         </response>
     </flow>
+<<<<<<< HEAD
+>>>>>>> parent of d089772... added mule flows
+=======
 >>>>>>> parent of d089772... added mule flows
     <flow name="FreeAgentsDraft">
         <http:listener config-ref="HTTP_Listener_Configuration" path="/freeagents/draft/{teamname}/{playerid}" allowedMethods="GET" doc:name="HTTP"/>
@@ -87,6 +97,7 @@ http://www.mulesoft.org/schema/mule/ws http://www.mulesoft.org/schema/mule/ws/cu
     </flow>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     <flow name="JSONGetSimWeek">
         <http:listener config-ref="HTTP_Listener_Configuration" path="/getsimweek" allowedMethods="GET" doc:name="HTTP"/>
@@ -96,6 +107,8 @@ http://www.mulesoft.org/schema/mule/ws http://www.mulesoft.org/schema/mule/ws/cu
         </response>
     </flow>
 >>>>>>> fe434bb5f397172f6cc8843347788616860320c5
+=======
+>>>>>>> parent of d089772... added mule flows
 =======
 >>>>>>> parent of d089772... added mule flows
     <flow name="MainMuleFlow">
