@@ -11,11 +11,10 @@ import javax.swing.text.html.HTMLDocument.Iterator;
 	
 	@WebMethod
 	public ArrayList<fantasyTeam> displayTeams() {
-		ArrayList<fantasyTeam> fantasyTeams = new ArrayList();
+		ArrayList<fantasyTeam> fantasyTeams = new ArrayList<fantasyTeam>();
 		DataConnect display = new DataConnect();
-		fantasyTeams = display.retrieveTeams();
-		java.util.Iterator<fantasyTeam> teamIterator = fantasyTeams.iterator();
 		
+		fantasyTeams = display.retrieveTeams();	
 		return fantasyTeams;
 	}
 	
