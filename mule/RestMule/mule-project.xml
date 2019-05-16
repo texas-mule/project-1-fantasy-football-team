@@ -2,5 +2,8 @@
 <mule-project xmlns="http://www.mulesoft.com/tooling/project" runtimeId="org.mule.tooling.server.3.9.0.ee" schemaVersion="5.3.0.0">
     <name>project-1-fantasy-football-team</name>
     <description></description>
+<<<<<<< HEAD
+=======
     <muleExtension name="APIkit SOAP" qualifier="org.mule.tooling.soapkit.contribution"/>
+>>>>>>> fe434bb5f397172f6cc8843347788616860320c5
 </mule-project>
