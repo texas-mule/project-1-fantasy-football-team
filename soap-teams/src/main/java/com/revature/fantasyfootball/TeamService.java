@@ -1,17 +1,7 @@
 package com.revature.fantasyfootball;
 
-<<<<<<< HEAD
 import javax.jws.WebService;
 
-@WebService
-public class TeamService {
-	
-	public void displayTeams() {
-		
-		DataConnect.retrieveTeams();
-	}
-
-=======
 import java.util.ArrayList;
 
 import javax.jws.WebMethod;
@@ -35,5 +25,4 @@ import javax.swing.text.html.HTMLDocument.Iterator;
 		week firstWeek = new week();
 		firstWeek.simulateWeek();
 	}
->>>>>>> fe434bb5f397172f6cc8843347788616860320c5
 }
