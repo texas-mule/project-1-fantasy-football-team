@@ -72,7 +72,16 @@ public class FantasyTeam {
 		
 	// OverWrite toString
 		public String toString() {
-			return "\nTeam " + teamRank + ": " + teamName;
+			String printStatement = printTeamInformation();
+			return printStatement;
 		}
-
+		
+		final String printTeamInformation() {
+			return "\nTeam " + teamRank + ": " + teamName + "\n 	Team Rank : " + teamRank + "\n 	Team Win Stat : " + teamWins + "\n 	Team Loss Stat : " + teamLoss;
+		}
+		
+		final String printTeamName() {
+			return teamName;
+		}
+		
 }

@@ -25,6 +25,11 @@ public class MatchUp {
 	// MatchUp Printer
 		@Override
 		public String toString() {
-			return  teamOne +" vs. "+ teamTwo + "\n";
+			return  teamOne.printTeamName() +" vs. "+ teamTwo.printTeamName() + "\n";
+		}
+		
+		public String printMatchUp() {
+			return  teamOne.printTeamName() +" vs. "+ teamTwo.printTeamName() + "\n";
 		}
 }
+
