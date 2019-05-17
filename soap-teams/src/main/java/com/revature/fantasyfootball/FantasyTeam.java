@@ -74,4 +74,5 @@ public class FantasyTeam {
 		public String toString() {
 			return "\nTeam " + teamRank + ": " + teamName;
 		}
+
 }

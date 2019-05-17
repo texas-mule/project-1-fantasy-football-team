@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
-import javax.swing.text.html.HTMLDocument.Iterator;
 
 @WebService
  public class TeamService {
@@ -42,6 +41,4 @@ import javax.swing.text.html.HTMLDocument.Iterator;
 		System.out.println(weekOne.getVictors());
 		
 	}
-
-
 }
