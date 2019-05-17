@@ -37,8 +37,8 @@ public class FantasyPoints {
 		for(Player p:players){
 			
 			BigDecimal temp=new BigDecimal(hashmap.get(p.getF_team()));
-			if(!list.contains(temp)){
-			list.add(temp);
+			if(!list.contains(temp.setScale(2, 4))){
+			list.add(temp.setScale(2, 4));
 			}
 			
 		}
