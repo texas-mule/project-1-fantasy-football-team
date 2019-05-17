@@ -13,6 +13,8 @@ import javax.jws.WebService;
 	public void simSeason(BigDecimal team1FPS, BigDecimal team2FPS,BigDecimal team3FPS, BigDecimal team4FPS,BigDecimal team5FPS, BigDecimal team6FPS) {
 		// Create Array of Season MatchUps
 				ArrayList<MatchUp> seasonMatchUps = new ArrayList<>();
+		// Create Array for Weekly Winners
+				ArrayList<FantasyTeam> weeklyVictors = new ArrayList<>();
 		// Create Array of Team FPS
 				ArrayList<BigDecimal> teamFPS = new ArrayList<>();
 					teamFPS.add(team1FPS);
@@ -34,11 +36,22 @@ import javax.jws.WebService;
 	
 		Week weekOne = new Week();
 		seasonMatchUps.addAll(weekOne.simWeek(myLeague, numberOfTeams));
-		System.out.println("This Week Match Ups");
-		System.out.println(seasonMatchUps);
+		
+		// Print This Week Match Ups
+		System.out.println("This Week Match Ups\n");
+		for(int i =0;i<seasonMatchUps.size();i++)
+			System.out.println(seasonMatchUps.get(i).printMatchUp());
 		System.out.println("-----------------------------");
-		System.out.println("This Week Winners");
-		System.out.println(weekOne.getVictors());
+		
+		// Print This Week Winners
+		System.out.println("This Week Winners \n");
+		weeklyVictors.addAll(weekOne.victors);
+		for(int i =0;i<weeklyVictors.size();i++)
+			System.out.println("Game "+ (i+1) +"  "+weeklyVictors.get(i).printTeamName());
+		
+		// Print Updated League Information
+		System.out.println("\nNew League Information");
+		System.out.println(myLeague);
 		
 	}
 }
