@@ -39,6 +39,7 @@ public class Week {
 
 			weeklyMatchUps.add(GameThree.scheduleGame(availableTeams, numberOfTeams));
 			victors.add(GameThree.getGameVictor());
+			
 			return weeklyMatchUps;
 		}
 
