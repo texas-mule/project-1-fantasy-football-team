@@ -35,7 +35,7 @@ public class DataConnect {
 			Connection database = DriverManager.getConnection(url, username, password);
 			// Initialize SQL Statement
 			Statement statement = database.createStatement();
-			ResultSet resultSet = statement.executeQuery("SELECT * FROM teams ORDER BY rank");
+			ResultSet resultSet = statement.executeQuery("SELECT * FROM league ORDER BY rank");
 			ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
 			// While Additional Data Exists
 			while(resultSet.next()) {
@@ -58,7 +58,7 @@ public class DataConnect {
 			database.close();
 		// If DataBase Cannot Connect, Print Error
 		}catch (java.sql.SQLException e) {
-			System.out.println("Cannot Connect To Teams Database");
+			System.out.println("Cannot Connect To League Database");
 		}
 		
 		// Return Fantasy League Information

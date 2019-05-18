@@ -32,4 +32,3 @@ public class MatchUp {
 			return  teamOne.printTeamName() +" vs. "+ teamTwo.printTeamName() + "\n";
 		}
 }
-

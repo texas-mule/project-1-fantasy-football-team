@@ -1,6 +1,8 @@
 package com.revature.fantasyfootball;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 // Creates Fantasy League
 public class FantasyLeague {
@@ -23,7 +25,9 @@ public class FantasyLeague {
 
 		@Override
 		public String toString() {
-			return "FantasyLeague " + teams ;
+			Comparator<FantasyTeam> displayLeagueByRank =Comparator.comparing(FantasyTeam::getTeamRank);  
+			 Collections.sort(teams,displayLeagueByRank);  
+			return " " + teams ;
 		}
 
 		public int getNumberOfTeams() {
@@ -35,6 +39,16 @@ public class FantasyLeague {
 		}
 
 		public ArrayList<FantasyTeam> getTeams() {
+			return teams;
+		}
+		
+		public ArrayList<FantasyTeam> updateLeagueRanks() {
+			 Comparator<FantasyTeam> updateRank =Comparator.comparing(FantasyTeam::getTeamWins);  
+			 Collections.sort(teams,updateRank);  
+			    int i=6;
+			    for(FantasyTeam team: teams){ 
+			    	team.setTeamRank(i--);  
+			      }   
 			return teams;
 		}
 }
