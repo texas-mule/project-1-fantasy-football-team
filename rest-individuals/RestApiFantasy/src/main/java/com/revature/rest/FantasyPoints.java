@@ -25,7 +25,7 @@ public class FantasyPoints {
 		HashMap<String,BigDecimal> hashmap=new HashMap();
 		List<Player> players=simweek.getAllPlayers();
 		for(Player p:players){
-			BigDecimal temp= new BigDecimal("30.12");
+			BigDecimal temp= new BigDecimal("00.00");
 			temp.setScale(2, 4);
 			hashmap.put(p.getF_team(), temp);
 			
