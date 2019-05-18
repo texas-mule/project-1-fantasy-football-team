@@ -1,6 +1,7 @@
 package com.revature.rest;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -11,11 +12,11 @@ import javax.ws.rs.core.MediaType;
 
 @Path("/simweek")
 public class SimWeek {
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public List<Player> simulate(){
+	private List<Player> players=new ArrayList<>();
+	
+	public SimWeek(){
 		PlayerImp playersImp=new PlayerImp();
-		List<Player> players=playersImp.getAllPlayers();
+		this.players=playersImp.getAllPlayers();
 		for(Player p:players){
 			Random rand = new Random();
 			double team = rand.nextInt(30);
@@ -23,7 +24,15 @@ public class SimWeek {
 			p.setFps(team);
 			
 		}
+	}
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Player> simulate(){
+		
         return players;
 		
+	}
+	public List<Player> getAllPlayers(){
+		return this.players;
 	}
 }
