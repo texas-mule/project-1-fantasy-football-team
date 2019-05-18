@@ -22,26 +22,22 @@ public class FantasyPoints {
 	public Response scores(){
 		List<BigDecimal> list=new ArrayList<>();
 		SimWeek simweek=new SimWeek();
-		HashMap<String,Double> hashmap=new HashMap();
+		HashMap<String,BigDecimal> hashmap=new HashMap();
 		List<Player> players=simweek.getAllPlayers();
 		for(Player p:players){
-			hashmap.put(p.getF_team(), 0.0);
+			BigDecimal temp= new BigDecimal("30.12");
+			temp.setScale(2, 4);
+			hashmap.put(p.getF_team(), temp);
 			
 		}
 		for(Player p:players){
-			double temp=hashmap.get(p.getF_team());
-			temp+=p.getFps();
+			BigDecimal temp=hashmap.get(p.getF_team());
+			temp.setScale(4, 2);
+			temp=temp.add(new BigDecimal (p.getFps()));
 			hashmap.put(p.getF_team(),temp);
 			
 		}
-		for(Player p:players){
-			
-			BigDecimal temp=new BigDecimal(hashmap.get(p.getF_team()));
-			if(!list.contains(temp.setScale(4,2))){
-			list.add(temp.setScale(4, 2));
-			}
-			
-		}
+
 		Gson gson=new Gson();
 		String jsonString = gson.toJson(hashmap);
 		return Response.status(Response.Status.OK).entity(jsonString).build();
