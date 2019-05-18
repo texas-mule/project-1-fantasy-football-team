@@ -37,13 +37,13 @@ public class FantasyPoints {
 		for(Player p:players){
 			
 			BigDecimal temp=new BigDecimal(hashmap.get(p.getF_team()));
-			if(!list.contains(temp.setScale(2, 4))){
-			list.add(temp.setScale(2, 4));
+			if(!list.contains(temp.setScale(4,2))){
+			list.add(temp.setScale(4, 2));
 			}
 			
 		}
 		Gson gson=new Gson();
-		String jsonString = gson.toJson(list);
+		String jsonString = gson.toJson(hashmap);
 		return Response.status(Response.Status.OK).entity(jsonString).build();
 		
 	}
