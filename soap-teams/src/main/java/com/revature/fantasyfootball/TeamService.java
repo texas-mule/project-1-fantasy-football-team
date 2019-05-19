@@ -162,85 +162,85 @@ import javax.jws.WebService;
 	
 	
 	
-			// simWeek Method
-				// simulates a single week
-	@WebMethod
-					public FantasyLeague simWeek(BigDecimal team1FPS, BigDecimal team2FPS,BigDecimal team3FPS, BigDecimal team4FPS,BigDecimal team5FPS, BigDecimal team6FPS) {
-		
-		// Create Array of Season MatchUps
-		// maintains a record of teams that have played each other this season;
-			ArrayList<MatchUp> seasonMatchUps = new ArrayList<>();
-					
-		// Create Array for Weekly Winners
-		// maintains a record of teams that have won this week
-			ArrayList<FantasyTeam> weeklyVictors = new ArrayList<>();
-					
-		// Create Array of Team FPS
-		// holds the input values of fantasy points per team
-			ArrayList<BigDecimal> teamFPS = new ArrayList<>();
-		// Add input values
-			teamFPS.add(team1FPS);
-			teamFPS.add(team2FPS);
-			teamFPS.add(team3FPS);
-			teamFPS.add(team4FPS);
-			teamFPS.add(team5FPS);
-			teamFPS.add(team6FPS);
-			
-		// Create New League Object
-		// holds information regarding league to be simulated
-			FantasyLeague myLeague = new FantasyLeague();
-			
-		// Set The League
-			myLeague.setLeague();
-			int numberOfTeams = myLeague.getNumberOfTeams();
-			int teamsPerMatch = 2;
-			SeasonLength thisSeasonLength = new SeasonLength();
-			
-		if(weekNumber<= thisSeasonLength.numberOfPossibleWeeks(numberOfTeams, teamsPerMatch)) {
-			
-			for(int i = 0; i<numberOfTeams;i++) {
-				myLeague.getTeams().get(i).setTeamFPS(teamFPS.get(i));
-			}
-		
-			Week weekOne = new Week();
-			seasonMatchUps.addAll(weekOne.simWeek(myLeague, numberOfTeams));
-			
-//			// Print This Week Match Ups
-//			System.out.println("This Week Match Ups\n");
-//			for(int i =0;i<seasonMatchUps.size();i++)
-//				System.out.println(seasonMatchUps.get(i).printMatchUp());
-//			System.out.println("-----------------------------");
-			
-			// Print This Week Winners
-			System.out.println("This Week Winners \n");
-			weeklyVictors.addAll(weekOne.victors);
-			for(int i =0;i<weeklyVictors.size();i++)
-				System.out.println("Game "+ (i+1) +"  "+weeklyVictors.get(i).printTeamName());
-			
-			// Update League Rank
-			myLeague.updateLeagueRanks();
-			
-			
-//			// Print Updated League Information
-//			System.out.println("\nNew League Information");
-//			System.out.println(myLeague);
+//			// simWeek Method
+//				// simulates a single week
+//	@WebMethod
+//					public FantasyLeague simWeek(BigDecimal team1FPS, BigDecimal team2FPS,BigDecimal team3FPS, BigDecimal team4FPS,BigDecimal team5FPS, BigDecimal team6FPS) {
+//		
+//		// Create Array of Season MatchUps
+//		// maintains a record of teams that have played each other this season;
+//			ArrayList<MatchUp> seasonMatchUps = new ArrayList<>();
+//					
+//		// Create Array for Weekly Winners
+//		// maintains a record of teams that have won this week
+//			ArrayList<FantasyTeam> weeklyVictors = new ArrayList<>();
+//					
+//		// Create Array of Team FPS
+//		// holds the input values of fantasy points per team
+//			ArrayList<BigDecimal> teamFPS = new ArrayList<>();
+//		// Add input values
+//			teamFPS.add(team1FPS);
+//			teamFPS.add(team2FPS);
+//			teamFPS.add(team3FPS);
+//			teamFPS.add(team4FPS);
+//			teamFPS.add(team5FPS);
+//			teamFPS.add(team6FPS);
 //			
-//			System.out.println("Week : " + weekNumber);
-			
-			weekNumber++;
-			
-			System.out.println("\n");
-			
-			myLeague.endSimulation(myLeague);
-			
-			return myLeague;
-		}
-		else {
-			System.out.println("Season Has Been Completed");
-			myLeague.setLeague();
-			System.out.println("The Winner is: " + myLeague.getTeams().get(0));
-			return myLeague;
-		}
-	
-	}	
+//		// Create New League Object
+//		// holds information regarding league to be simulated
+//			FantasyLeague myLeague = new FantasyLeague();
+//			
+//		// Set The League
+//			myLeague.setLeague();
+//			int numberOfTeams = myLeague.getNumberOfTeams();
+//			int teamsPerMatch = 2;
+//			SeasonLength thisSeasonLength = new SeasonLength();
+//			
+//		if(weekNumber<= thisSeasonLength.numberOfPossibleWeeks(numberOfTeams, teamsPerMatch)) {
+//			
+//			for(int i = 0; i<numberOfTeams;i++) {
+//				myLeague.getTeams().get(i).setTeamFPS(teamFPS.get(i));
+//			}
+//		
+//			Week weekOne = new Week();
+//			seasonMatchUps.addAll(weekOne.simWeek(myLeague, numberOfTeams));
+//			
+////			// Print This Week Match Ups
+////			System.out.println("This Week Match Ups\n");
+////			for(int i =0;i<seasonMatchUps.size();i++)
+////				System.out.println(seasonMatchUps.get(i).printMatchUp());
+////			System.out.println("-----------------------------");
+//			
+//			// Print This Week Winners
+//			System.out.println("This Week Winners \n");
+//			weeklyVictors.addAll(weekOne.victors);
+//			for(int i =0;i<weeklyVictors.size();i++)
+//				System.out.println("Game "+ (i+1) +"  "+weeklyVictors.get(i).printTeamName());
+//			
+//			// Update League Rank
+//			myLeague.updateLeagueRanks();
+//			
+//			
+////			// Print Updated League Information
+////			System.out.println("\nNew League Information");
+////			System.out.println(myLeague);
+////			
+////			System.out.println("Week : " + weekNumber);
+//			
+//			weekNumber++;
+//			
+//			System.out.println("\n");
+//			
+//			myLeague.endSimulation(myLeague);
+//			
+//			return myLeague;
+//		}
+//		else {
+//			System.out.println("Season Has Been Completed");
+//			myLeague.setLeague();
+//			System.out.println("The Winner is: " + myLeague.getTeams().get(0));
+//			return myLeague;
+//		}
+//	
+//	}	
 }
