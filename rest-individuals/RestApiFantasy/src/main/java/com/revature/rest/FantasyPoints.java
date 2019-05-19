@@ -20,26 +20,42 @@ public class FantasyPoints {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response scores(){
-		List<BigDecimal> list=new ArrayList<>();
+		ArrayList<TeamScores> teamScores=new ArrayList();
+		List<String> teams=new ArrayList<>();
+		HashMap<String, BigDecimal> hashmap=new HashMap();
+		List<Player> players=new ArrayList<>();
 		SimWeek simweek=new SimWeek();
-		HashMap<String,BigDecimal> hashmap=new HashMap();
-		List<Player> players=simweek.getAllPlayers();
+		PlayerImp playerImp=new PlayerImp();
+		players=simweek.getAllPlayers();
 		for(Player p:players){
-			BigDecimal temp= new BigDecimal("00.00");
-			temp.setScale(2, 4);
-			hashmap.put(p.getF_team(), temp);
+			if(!teams.contains(p.getF_team())){
+				teams.add(p.getF_team());
+			}
 			
 		}
-		for(Player p:players){
-			BigDecimal temp=hashmap.get(p.getF_team());
-			temp.setScale(4, 2);
-			temp=temp.add(new BigDecimal (p.getFps()));
-			hashmap.put(p.getF_team(),temp);
+		for(String p:teams){
+			TeamScores teas=new TeamScores();
+			teas.setTeam(p);
+			teamScores.add(teas);
+			
 			
 		}
-
+		
+		for(TeamScores t:teamScores){
+			for(Player p:players){
+				if(t.getTeam().equals(p.getF_team())){
+					
+					double temp=p.getFps();
+					temp=temp+t.getScore();
+					t.setScore(temp);
+					
+					
+				}
+			}
+		}
+		TeamScoresFormat teamScoreFormat =  new TeamScoresFormat(teamScores);
 		Gson gson=new Gson();
-		String jsonString = gson.toJson(hashmap);
+		String jsonString = gson.toJson(teamScoreFormat);
 		return Response.status(Response.Status.OK).entity(jsonString).build();
 		
 	}
