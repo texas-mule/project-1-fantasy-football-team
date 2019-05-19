@@ -6,13 +6,13 @@ import java.util.List;
 
 public class TeamScores {
 
-private String team;
+private String teamname;
 private double score;
 public String getTeam() {
-	return team;
+	return teamname;
 }
 public void setTeam(String team) {
-	this.team = team;
+	this.teamname = team;
 }
 public double getScore() {
 	return score;
@@ -22,7 +22,7 @@ public void setScore(double score) {
 }
 @Override
 public String toString() {
-	return "TeamScores [team=" + team + ", score=" + score + "]";
+	return "team:" + teamname + ", score=" + score +" ";
 }
 
 
