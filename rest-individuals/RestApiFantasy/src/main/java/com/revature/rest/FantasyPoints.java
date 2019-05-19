@@ -39,8 +39,9 @@ public class FantasyPoints {
 			teamScores.add(teas);
 			
 			
+			
 		}
-		
+		ArrayList<TeamScoresFormat> teamsScoreFormat=new ArrayList<>();
 		for(TeamScores t:teamScores){
 			for(Player p:players){
 				if(t.getTeam().equals(p.getF_team())){
@@ -48,14 +49,23 @@ public class FantasyPoints {
 					double temp=p.getFps();
 					temp=temp+t.getScore();
 					t.setScore(temp);
-					
+										
 					
 				}
+				
 			}
+			ArrayList<TeamScores> temp1=new ArrayList();
+			temp1.add(t);
+			TeamScoresFormat teamScoreFormat =  new TeamScoresFormat(temp1);
+			teamsScoreFormat.add(teamScoreFormat);
+
 		}
-		TeamScoresFormat teamScoreFormat =  new TeamScoresFormat(teamScores);
+		
+		
+		
+		
 		Gson gson=new Gson();
-		String jsonString = gson.toJson(teamScoreFormat);
+		String jsonString = gson.toJson(teamsScoreFormat);
 		return Response.status(Response.Status.OK).entity(jsonString).build();
 		
 	}
