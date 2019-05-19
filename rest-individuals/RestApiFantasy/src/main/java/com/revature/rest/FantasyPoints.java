@@ -50,8 +50,8 @@ public class FantasyPoints {
 				if(t.getTeam().equals(p.getF_team())){
 					
 					double temp=p.getFps();
-					temp=temp+t.getScore();
-					t.setScore(temp);
+					temp=temp+t.getteamFps();
+					t.setteamFps(temp);
 					
 					
 				}
