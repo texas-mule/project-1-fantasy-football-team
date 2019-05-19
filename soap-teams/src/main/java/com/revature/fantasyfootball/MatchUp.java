@@ -1,34 +1,57 @@
 package com.revature.fantasyfootball;
 
+// Create An Object To Represent Team Match Ups
 public class MatchUp {
 
+/*******************************************************************************************************************************************/
+/******************************************************* MATCH UP FIELDS *******************************************************************/
+/*******************************************************************************************************************************************/
+
 	// MatchUp Fields
-		// Team One
-		FantasyTeam teamOne = new FantasyTeam();
-		// Team Two
-		FantasyTeam teamTwo = new FantasyTeam();
 	
+		// Team One
+			FantasyTeam teamOne = new FantasyTeam();
+			
+		// Team Two
+			FantasyTeam teamTwo = new FantasyTeam();
+	
+/*******************************************************************************************************************************************/
+/*********************************************** MATCH UP GETTERS ANDS SETTERS *************************************************************/
+/*******************************************************************************************************************************************/	
+			
 	// MatchUp Getters and Setters
-		public FantasyTeam getTeamOne() {
-			return teamOne;
-		}
-		public void setTeamOne(FantasyTeam teamOne) {
-			this.teamOne = teamOne;
-		}
-		public FantasyTeam getTeamTwo() {
-			return teamTwo;
-		}
-		public void setTeamTwo(FantasyTeam teamTwo) {
-			this.teamTwo = teamTwo;
-		}
 		
-	// MatchUp Printer
-		@Override
-		public String toString() {
-			return  teamOne.printTeamName() +" vs. "+ teamTwo.printTeamName() + "\n";
-		}
+		// Team One
+			public FantasyTeam getTeamOne() {
+				return teamOne;
+			}
+			
+			public void setTeamOne(FantasyTeam teamOne) {
+				this.teamOne = teamOne;
+			}
 		
-		public String printMatchUp() {
-			return  teamOne.printTeamName() +" vs. "+ teamTwo.printTeamName() + "\n";
-		}
+		// Team Two
+			public FantasyTeam getTeamTwo() {
+				return teamTwo;
+			}
+			
+			public void setTeamTwo(FantasyTeam teamTwo) {
+				this.teamTwo = teamTwo;
+			}
+		
+/*******************************************************************************************************************************************/
+/*********************************************** MATCH UP DISPLAY FUNCTIONS ****************************************************************/
+/*******************************************************************************************************************************************/
+
+	// Match Up Print Functions
+	
+		// OverWrite toString
+			@Override
+			public String toString() {
+				return  teamOne.printTeamName() +" vs. "+ teamTwo.printTeamName();
+			}
+			
+			public String printMatchUp() {
+				return  teamOne.printTeamName() +" vs. "+ teamTwo.printTeamName();
+			}
 }
