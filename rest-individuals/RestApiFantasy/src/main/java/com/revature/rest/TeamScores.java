@@ -7,7 +7,7 @@ import java.util.List;
 public class TeamScores {
 
 private String teamName;
-private double teamFps;
+private double teamFPS;
 public String getTeam() {
 	return teamName;
 }
@@ -15,14 +15,14 @@ public void setTeam(String team) {
 	this.teamName = team;
 }
 public double getteamFps() {
-	return teamFps;
+	return teamFPS;
 }
 public void setteamFps(double teamFps) {
-	this.teamFps = teamFps;
+	this.teamFPS = teamFps;
 }
 @Override
 public String toString() {
-	return "team:" + teamName + ", teamFps=" + teamFps +" ";
+	return "team:" + teamName + ", teamFps=" + teamFPS +" ";
 }
 
 
