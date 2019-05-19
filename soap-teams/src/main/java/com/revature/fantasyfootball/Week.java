@@ -25,7 +25,7 @@ public class Week {
 					availableTeams.add(myLeague.getTeams().get(i));	
 				}
 				
-			weeklyMatchUps.add(GameOne.scheduleGame(availableTeams, numberOfTeams));
+			weeklyMatchUps.add(GameOne.runGame(availableTeamsForRandomGenerator, numberOfTeamsForRandomGenerator, previouslySelectedMatches, teamOneFPS, teamTwoFPS););
 			availableTeams = GameOne.getAvailableTeams();
 			victors.add(GameOne.getGameVictor());
 			numberOfTeams--;
