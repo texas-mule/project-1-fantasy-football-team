@@ -2,6 +2,7 @@ package com.revature.rest;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -12,6 +13,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import com.google.gson.Gson;
 
@@ -39,9 +43,8 @@ public class FantasyPoints {
 			teamScores.add(teas);
 			
 			
-			
 		}
-		ArrayList<TeamScoresFormat> teamsScoreFormat=new ArrayList<>();
+		JSONArray team = new JSONArray();
 		for(TeamScores t:teamScores){
 			for(Player p:players){
 				if(t.getTeam().equals(p.getF_team())){
@@ -49,23 +52,30 @@ public class FantasyPoints {
 					double temp=p.getFps();
 					temp=temp+t.getScore();
 					t.setScore(temp);
-										
+					
 					
 				}
-				
 			}
-			ArrayList<TeamScores> temp1=new ArrayList();
-			temp1.add(t);
-			TeamScoresFormat teamScoreFormat =  new TeamScoresFormat(temp1);
-			teamsScoreFormat.add(teamScoreFormat);
-
 		}
 		
+		JSONArray array = new JSONArray();
+		JSONObject mainObject=new JSONObject(true);
+		JSONObject ns[]=new JSONObject[teamScores.size()];
+		int i=0;
+		for(TeamScores t:teamScores){
+			JSONObject obj = new JSONObject(true);
+			
+			obj.put("team", t);
+			array.put(obj);
+			
+			
+		}
 		
-		
-		
+		ArrayList<TeamScoresFormat> teamsScoreFormat=new ArrayList<>();
+		TeamScoresFormat teamScoreFormat =  new TeamScoresFormat(teamScores);
 		Gson gson=new Gson();
-		String jsonString = gson.toJson(teamsScoreFormat);
+		String jsonString = gson.toJson(array);
+		//jsonString = jsonString.substring(2, jsonString.length() - 2);
 		return Response.status(Response.Status.OK).entity(jsonString).build();
 		
 	}
