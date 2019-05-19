@@ -16,7 +16,7 @@ public class Game {
 	
 		// Match Up
 			private MatchUp gameMatchUp = new MatchUp();
-		
+
 		// Game Victor
 			private FantasyTeam gameVictor;
 		
@@ -32,39 +32,37 @@ public class Game {
 	
 	// Game Getters and Setters
 			
-			// Match Up
-				public void setGameMatchUp(MatchUp gameMatchUp) {
-					this.gameMatchUp = gameMatchUp;
-				}
-				public MatchUp getGameMatchUp() {
-					return gameMatchUp;
-				}
+		// Match Up
+			public void setGameMatchUp(MatchUp gameMatchUp) {
+				this.gameMatchUp = gameMatchUp;
+			}
+			public MatchUp getGameMatchUp() {
+				return gameMatchUp;
+			}
 			
-			// Victor
-				public void setGameVictor(FantasyTeam gameVictor) {
-					this.gameVictor = gameVictor;
-				}
-				public FantasyTeam getGameVictor() {
-					return gameVictor;
-				}
+		// Victor
+			public void setGameVictor(FantasyTeam gameVictor) {
+				this.gameVictor = gameVictor;
+			}
+			public FantasyTeam getGameVictor() {
+				return gameVictor;
+			}
 			
-			// Loser
-				public void setGameLoser(FantasyTeam gameLoser) {
-					this.gameLoser = gameLoser;
-				}
-
-				public FantasyTeam getGameLoser() {
-					return gameLoser;
-				}
+		// Loser
+			public void setGameLoser(FantasyTeam gameLoser) {
+				this.gameLoser = gameLoser;
+			}
+			public FantasyTeam getGameLoser() {
+				return gameLoser;
+			}
 			
-			// Available Teams
-				public void setAvailableTeams(ArrayList<FantasyTeam> availableTeams) {
-					this.availableTeams = availableTeams;
-				}
-
-				public ArrayList<FantasyTeam> getAvailableTeams() {
-					return availableTeams;
-				}
+		// Available Teams
+			public void setAvailableTeams(ArrayList<FantasyTeam> availableTeams) {
+				this.availableTeams = availableTeams;
+			}
+			public ArrayList<FantasyTeam> getAvailableTeams() {
+				return availableTeams;
+			}
 			
 /*******************************************************************************************************************************************/
 /************************************************* GAME FUNCTIONS **************************************************************************/
@@ -72,88 +70,43 @@ public class Game {
 		
 	// Game Functions
 			
-			// Select Teams For Games
-			// selects random team
-				public MatchUp selectTeamsForMatchUp(ArrayList<FantasyTeam> availableTeamsForRandomGenerator, int numberOfTeamsForRandomGenerator, ArrayList<MatchUp> previouslySelectedMatches) {
-					
-					// Method Fields
-					
-						// Number of Teams to Select From
-							int numberOfTeamsForRandomGeneratorAttempt = numberOfTeamsForRandomGenerator;
-				
-						// Available Teams to Select From
-							ArrayList<FantasyTeam> availableTeamsForRandomGeneratorAttempt = availableTeamsForRandomGenerator;
-							
-						// Iterator to scan through previous matches
-							Iterator<MatchUp> scanPreviousMatches = previouslySelectedMatches.iterator();
-							
-						// Previous Matches
-							MatchUp previousMatchUp = new MatchUp();
-							
-						// Random Integer
-							Random randomSelector = new Random();
-							
-						// Fantasy Team To Be Selected
-							FantasyTeam team = new FantasyTeam();
-							
-					// Method Implementation
-							
-						// Select Team One
-							gameMatchUp.setTeamOne(availableTeamsForRandomGeneratorAttempt.get(randomSelector.nextInt(numberOfTeamsForRandomGeneratorAttempt)));
-							team = gameMatchUp.getTeamOne();
-							availableTeamsForRandomGeneratorAttempt.remove(team);
-							numberOfTeamsForRandomGeneratorAttempt--;
-							
-						// Select Team Two
-							gameMatchUp.setTeamTwo(availableTeamsForRandomGeneratorAttempt.get(randomSelector.nextInt(numberOfTeamsForRandomGeneratorAttempt)));
-							team = gameMatchUp.getTeamTwo();
-							availableTeamsForRandomGeneratorAttempt.remove(team);
-							numberOfTeamsForRandomGeneratorAttempt--;
-							
-						// Check Match Up
-							for(int i = 0; i<previouslySelectedMatches.size();i++) {
-								previousMatchUp.equals(scanPreviousMatches.next());
-								if(gameMatchUp.teamOne.equals(previousMatchUp.teamOne) && gameMatchUp.teamTwo.equals(previousMatchUp.teamTwo)
-										|| gameMatchUp.teamOne.equals(previousMatchUp.teamTwo) && gameMatchUp.teamTwo.equals(previousMatchUp.teamOne)) {
-									
-									gameMatchUp = selectTeamsForMatchUp(availableTeamsForRandomGenerator, numberOfTeamsForRandomGenerator, previouslySelectedMatches);	
-								}	
-							}
-					
-					return gameMatchUp;
-				}
-				
-				
-				
 			// Run A Game
 			// initiates a game
-				public void runGame(ArrayList<FantasyTeam> availableTeamsForRandomGenerator, int numberOfTeamsForRandomGenerator, ArrayList<MatchUp> previouslySelectedMatches, BigDecimal teamOneFPS, BigDecimal teamTwoFPS) {
+				public MatchUp setGame(ArrayList<FantasyTeam> availableTeamsForGame, int numberOfTeamsForGame, ArrayList<MatchUp> previouslySelectedMatches) {
+					System.out.println(availableTeamsForGame.size());
+					System.out.println(availableTeamsForGame);
+					// Set Match Up
+						this.gameMatchUp.setMatchUp(availableTeamsForGame, numberOfTeamsForGame, previouslySelectedMatches);
 					
-					
-					selectTeamsForMatchUp(availableTeamsForRandomGenerator, numberOfTeamsForRandomGenerator, previouslySelectedMatches);
-					
-					gameMatchUp.getTeamOne().setTeamFPS(teamOneFPS);
-					gameMatchUp.getTeamTwo().setTeamFPS(teamTwoFPS);
+					System.out.println("RUNNING GAME");
 					
 					// Decide Victor
-					BigDecimal x=gameMatchUp.teamOne.getTeamFPS();
-					BigDecimal y=gameMatchUp.teamTwo.getTeamFPS();
+						BigDecimal x=this.gameMatchUp.teamOne.getTeamFPS();
+						System.out.println(x);
+						BigDecimal y=this.gameMatchUp.teamTwo.getTeamFPS();
+						System.out.println(y);
+				
+						// If Team Two Wins
+							if(x.compareTo(y)==-1) {
+								this.gameVictor = this.gameMatchUp.teamTwo;
+								this.gameLoser = this.gameMatchUp.teamOne;
+								this.gameMatchUp.teamOne.teamHasLoss();
+								this.gameMatchUp.teamTwo.teamHasWon();
+							}
+						
+						// If Team One Wins
+							if(x.compareTo(y)==1) {
+								this.gameVictor = this.gameMatchUp.teamOne;
+								this.gameLoser = this.gameMatchUp.teamTwo;
+								this.gameMatchUp.teamOne.teamHasWon();
+								this.gameMatchUp.teamTwo.teamHasLoss();
+							}
+						
+						// If Its A Draw
+							if(x.compareTo(y)==0)
+								this.gameVictor = null;
 					
-					if(x.compareTo(y)==-1) {
-						gameVictor = gameMatchUp.teamTwo;
-						gameLoser = gameMatchUp.teamOne;
-						gameMatchUp.teamOne.teamHasLoss();
-						gameMatchUp.teamTwo.teamHasWon();
-					}
-					if(x.compareTo(y)==1) {
-						gameVictor = gameMatchUp.teamOne;
-						gameLoser = gameMatchUp.teamTwo;
-						gameMatchUp.teamOne.teamHasWon();
-						gameMatchUp.teamTwo.teamHasLoss();
-					}
-					if(x.compareTo(y)==0)
-						gameVictor = null;
-					
+					return gameMatchUp;
 				}
 
 		@Override
