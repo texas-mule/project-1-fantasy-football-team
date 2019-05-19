@@ -20,7 +20,7 @@ public class FantasyLeague {
 			private int numberOfTeams;
 			
 		// Instantiate DataConnection To Gather League Data
-			DataConnect createFantasyLeague = new DataConnect();
+			DataConnect leagueDataConnection = new DataConnect();
 
 /*******************************************************************************************************************************************/
 /********************************************* FANTASY LEAGUE GETTERS ANDS SETTERS *********************************************************/
@@ -55,11 +55,16 @@ public class FantasyLeague {
 		// Set League
 		// populates the league with teams
 			public void setLeague() {
-				teams = createFantasyLeague.retrieveLeagueInformation();
-				numberOfTeams= createFantasyLeague.getTeamCounter();
+				// Gathers Teams in League
+					this.leagueDataConnection.retrieveLeagueInformation();
+					this.setTeams(leagueDataConnection.getFantasyLeagueInformation());
+					
+				
+				// Counts Number of Teams
+					this.numberOfTeams = teams.size();
 			}
 
-		// Update League
+		// Update League bye Rank
 		// sorts the league by number of wins and assigns a rank
 			public ArrayList<FantasyTeam> updateLeagueRanks() {
 				 Comparator<FantasyTeam> sortByWins =Comparator.comparing(FantasyTeam::getTeamWins);  
@@ -73,8 +78,8 @@ public class FantasyLeague {
 			
 		// Submit League
 		// at the end of the week, updates league in database
-			public void endSimulation(FantasyLeague myLeague) {
-				createFantasyLeague.updateDataBaseInformation(myLeague);;		
+			public void endSimulation(FantasyLeague endOfWeekLeagueSubmission) {
+				this.leagueDataConnection.updateLeagueInformation(endOfWeekLeagueSubmission);;		
 			}
 /*******************************************************************************************************************************************/
 /******************************************** FANTASY LEAGUE DISPLAY FUNCTIONS *************************************************************/
@@ -83,15 +88,13 @@ public class FantasyLeague {
 	// Fantasy League Print Functions
 		
 		// OverWrite toString
-		// print league by rank
+		// print league as is
 		@Override
 			public String toString() {
-				Comparator<FantasyTeam> sortByRank =Comparator.comparing(FantasyTeam::getTeamRank);  
-				Collections.sort(teams,sortByRank);  
 				return " " + teams ;
 			}
 		
-		// Display Teams
+		// Display Teams By ID
 		// print league by id
 			public String displayTeamsByID() {
 				Comparator<FantasyTeam> sortByID =Comparator.comparing(FantasyTeam::getTeamID);  
@@ -99,11 +102,27 @@ public class FantasyLeague {
 				return " " + teams ;
 			}
 			
-		// Display Teams
+		// Display Teams By Name
 		// print league by alphabetical name
 			public String displayTeamsByName() {
 				Comparator<FantasyTeam> sortByName =Comparator.comparing(FantasyTeam::getTeamName);  
 				Collections.sort(teams,sortByName);  
 				return " " + teams ;
 			}	
+			
+		// Display Teams By FPS
+		// print league by FPS
+			public String displayTeamsByFPS() {
+				Comparator<FantasyTeam> sortByName =Comparator.comparing(FantasyTeam::getTeamFPS);  
+				Collections.sort(teams,sortByName);  
+				return " " + teams ;
+			}
+				
+		// Display Teams
+		// print league by alphabetical name
+			public String displayTeamsByWins() {
+				Comparator<FantasyTeam> sortByName =Comparator.comparing(FantasyTeam::getTeamWins);  
+				Collections.sort(teams,sortByName);  
+				return " " + teams ;
+			}
 }

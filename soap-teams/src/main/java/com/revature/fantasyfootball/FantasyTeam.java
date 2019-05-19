@@ -1,7 +1,6 @@
 package com.revature.fantasyfootball;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 
 // Create Object To Represent A Team
 public class FantasyTeam {
@@ -29,9 +28,6 @@ public class FantasyTeam {
 			
 		// Team Number Of Losses
 			private int teamLoss;
-			
-		// Record Of Teams Played
-			ArrayList<String> playedTeams = new ArrayList<>();
 			
 /*******************************************************************************************************************************************/
 /********************************************* FANTASY TEAM GETTERS ANDS SETTERS ***********************************************************/
@@ -113,7 +109,7 @@ public class FantasyTeam {
 			
 		// OverWrite toString
 			public String toString() {
-				String printStatement = printTeamInformation();
+				String printStatement = printTeamStats();
 				return printStatement;
 			}
 		
@@ -131,8 +127,14 @@ public class FantasyTeam {
 			
 		// Print Team Stats
 		// prints team wins and losses
-				public String printTeamStats() {
-					return teamName + " " + teamWins + " " + teamLoss;
-				}
+			public String printTeamStats() {
+				return teamName + " " + teamWins + " " + teamLoss;
+			}
+			
+		// Print Team FPS
+		// prints team name and fantasy points
+			public String printTeamFPS() {
+				return teamName + " " + teamFPS;
+			}
 		
 }
