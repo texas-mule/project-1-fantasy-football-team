@@ -1,18 +1,10 @@
 package com.revature.fantasyfootball;
 
-import java.beans.ConstructorProperties;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
-import javax.jws.WebResult;
 import javax.jws.WebService;
-import javax.jws.soap.*;
 
 @WebService
  public class TeamService {
@@ -42,13 +34,14 @@ import javax.jws.soap.*;
 /*******************************************************************************************************************************************/
 /************************************************* SERVICE FUNCTIONS **************************************************************************/
 /*******************************************************************************************************************************************/
+			
 			@WebMethod
-			public FantasyLeague simWeekFunction(@WebParam(name = "team", partName = "teamName") ArrayList<TeamResults> teamResults) {
+			public FantasyLeague simWeekFunction(@WebParam(name = "team") ArrayList<TeamResults> teamResults) {
 				System.out.println(" INPUT ");
 				for(TeamResults r:teamResults)
 				{
 					System.out.println(r.teamName);
-					System.out.println(r.teampFPS);
+					System.out.println(r.teamFPS);
 					
 				}
 				
@@ -87,98 +80,112 @@ import javax.jws.soap.*;
 				return endingWeekLeague;
 			}
 			
-			public ArrayList<TeamResults> testingTestResults(){
-				ArrayList<TeamResults> teamResults = new ArrayList<TeamResults>();
-				setTestTeamFPS(teamResults);
-				return teamResults;
-			}
-			
 /*******************************************************************************************************************************************/
 /************************************************* SERVICE TEST FUNCTIONS ******************************************************************/
 /*******************************************************************************************************************************************/
 
-// Team Service Test Functions
+	// Team Service Test Functions
+		
+		/**********************************/
+		// TESTING SEASON LENGTH FUNCTION //			FUNCTIONAL √
+		/**********************************/	
+		// tests the season length given number of teams
+			@WebMethod
+			public int testingSeasonLengthFunction() {
+				
+				// Testing Fields
+					
+					// Season Length
+						int thisSeasonLength = 1;
+					
+					// Teams Per Match
+						int teamsPerMatch =2;
+						
+						for(int i = 0;i<15;i++) {
+							
+							// If Less Than Two Teams
+							// not enough teams
+								if(i<2)
+									System.out.println("This League Does Not Have Enough Teams");
+							
+							// If Between Two And Twelve
+							// enough teams
+								if(i>=2 && i<13) {
+									SeasonLength testLength = new SeasonLength();
+									thisSeasonLength = testLength.numberOfPossibleWeeks(i, teamsPerMatch);
+									System.out.println("Number of Teams : " + i);
+									System.out.println("Season Length : " + thisSeasonLength + " Weeks ");	
+								}
+							
+							// If More Than Twelve
+							// too many teams
+								if(i>=13)
+									System.out.println("This League Does Not Have Enough Teams");
+						}
+				
+				// Return Total Amount Of Weeks
+				return thisSeasonLength;
+			}
+			
 				
 	// Testing Game Selection Method
 	// tests the method which sets up games
-	@WebMethod
-		public void testingMatchSelectionFunction() {
-							
-		// Testing Game Fields	
+		/************************************/
+		// TESTING MATCH SELECTION FUNCTION //			FUNCTIONAL √
+		/************************************/
+		// tests the match selection for a single game
+			@WebMethod
+			public ArrayList<MatchUp> testingMatchSelectionFunction() {
 								
-		for(int i =0;i<15;i++) {
-			
-			// Match Up Return
-				MatchUp match = new MatchUp();
-			
-			// Previously Selected Match Ups
-				ArrayList<MatchUp> previouslySelectedMatches = new ArrayList<MatchUp>();
-				previouslySelectedMatches.addAll(seasonMatchUps);
+			// Testing Game Fields	
 				
-			// League
-				FantasyLeague matchTestLeague = new FantasyLeague();
-				matchTestLeague.setLeague();
+				// Possible Matches
+					SeasonLength thisSeasonLength = new SeasonLength();
+					int totalMatches = thisSeasonLength.numberOfPossibleMatches(6, 2);
+									
+				for(int i =0;i < totalMatches ;i++) {
+				
+				// Match Up Return
+					MatchUp match = new MatchUp();
+				
+				// Previously Selected Match Ups
+					ArrayList<MatchUp> previouslySelectedMatches = new ArrayList<MatchUp>();
+					previouslySelectedMatches.addAll(seasonMatchUps);
 					
-			// Available Teams To Select From For Match
-				ArrayList<FantasyTeam> availableTeamsForMatch = new ArrayList<FantasyTeam>();
-				availableTeamsForMatch.addAll(matchTestLeague.getTeams());
-							
-			// Number of Teams to Select From For Match
-				int numberOfTeamsForMatch = matchTestLeague.getNumberOfTeams();
-							
-		// Testing Game Implementation	
-				
-			// Selection of Teams for Match
-				match.setMatchUp(availableTeamsForMatch, numberOfTeamsForMatch, previouslySelectedMatches);
-				
-				System.out.println(" Match Number " + i + " : " + match);
-				
-				if(match.teamOne.getTeamName().equalsIgnoreCase(match.teamTwo.getTeamName())) {
-					System.out.print(" INVALID MATCH !!!!");
-					break;
-				}
-				
-				else {
-					System.out.print("	VALID MATCH !!!!\n\n");
-					seasonMatchUps.add(match);
-				}
-				
-				
-		}
-	}  
-
-	// Testing Season Length Method
-	// tests the season length given number of teams
-		public int testingSeasonLengthFunction() {
-		
-			// Testing Fields
-			
-				// Season Length
-				int thisSeasonLength = 1;
-			
-				// Teams Per Match
-				int teamsPerMatch =2;
-				
-					for(int i = 0;i<15;i++) {
-						if(i<2)
-							System.out.println("This League Does Not Have Enough Teams");
+				// League
+					FantasyLeague matchTestLeague = new FantasyLeague();
+					matchTestLeague.setLeague();
 						
-						if(i>=2 && i<13) {
-							SeasonLength testLength = new SeasonLength();
-							thisSeasonLength = testLength.numberOfPossibleWeeks(i, teamsPerMatch);
-							System.out.println("Number of Teams : " + i);
-							System.out.println("Season Length : " + thisSeasonLength + " Weeks ");	
-						}
-						
-						if(i>=13)
-							System.out.println("This League Does Not Have Enough Teams");
+				// Available Teams To Select From For Match
+					ArrayList<FantasyTeam> availableTeamsForMatch = new ArrayList<FantasyTeam>();
+					availableTeamsForMatch.addAll(matchTestLeague.getTeams());
+								
+				// Number of Teams to Select From For Match
+					int numberOfTeamsForMatch = matchTestLeague.getNumberOfTeams();
+								
+			// Testing Game Implementation	
+					
+				// Selection of Teams for Match
+					match.setMatchUp(availableTeamsForMatch, numberOfTeamsForMatch, previouslySelectedMatches);
+					
+					System.out.println(" Match Number " + (i+1) + " : " + match);
+					
+					if(match.teamOne.getTeamName().equalsIgnoreCase(match.teamTwo.getTeamName())) {
+						break;
 					}
 					
-			return thisSeasonLength;
-		
-		}
-			
-	// Testing Game Run Method
+					else {
+						seasonMatchUps.add(match);
+					}
+					
+					
+					}
+					return seasonMatchUps;
+				}  
+
+		/******************************/
+		// TESTING RUN GAME FUNCTION //					
+		/*****************************/
 	// tests the method which runs the games
 		public Game testingSetGameFunction() {
 			
@@ -186,8 +193,7 @@ import javax.jws.soap.*;
 			
 				// Game Return
 					Game testSetGame = new Game();
-			
-			
+					
 				// Previously Selected Match Ups
 					ArrayList<MatchUp> previouslySelectedMatches = new ArrayList<MatchUp>();
 					previouslySelectedMatches.addAll(seasonMatchUps);
@@ -210,18 +216,16 @@ import javax.jws.soap.*;
 				testSetGame.setGame(availableTeamsForGame, numberOfTeamsForGame, previouslySelectedMatches);	
 				
 				System.out.println(testSetGame.getGameMatchUp());
-				System.out.println(testSetGame.getGameVictor());
-				System.out.println(testSetGame.getGameLoser());
 				
-//				if(testSetGame.getGameVictor().getTeamName().equalsIgnoreCase("Revature Ravagers"))
-//					System.out.println(" Game Victor : " + testSetGame.getGameVictor().getTeamName() + "			| Wins : " + testSetGame.getGameVictor().getTeamWins() + " Losses : " + testSetGame.getGameVictor().getTeamLoss());
-//				else
-//					System.out.println(" Game Victor : " + testSetGame.getGameVictor().getTeamName() + "				| Wins : " + testSetGame.getGameVictor().getTeamWins() + " Losses : " + testSetGame.getGameVictor().getTeamLoss());
-//				
-//				if(testSetGame.getGameLoser().getTeamName().equalsIgnoreCase("Revature Ravagers"))
-//					System.out.println(" Game Loser  : " + testSetGame.getGameLoser().getTeamName() +  "			| Wins : " + testSetGame.getGameLoser().getTeamWins() + " Losses : " + testSetGame.getGameLoser().getTeamLoss());
-//				else
-//					System.out.println(" Game Loser  : " + testSetGame.getGameLoser().getTeamName() +  "				| Wins : " + testSetGame.getGameLoser().getTeamWins() + " Losses : " + testSetGame.getGameLoser().getTeamLoss());
+				if(testSetGame.getGameVictor().getTeamName().equalsIgnoreCase("Revature Ravagers"))
+					System.out.println("Game Victor : " + testSetGame.getGameVictor().getTeamName() + "			| Wins : " + testSetGame.getGameVictor().getTeamWins() + " Losses : " + testSetGame.getGameVictor().getTeamLoss());
+				else
+					System.out.println("Game Victor : " + testSetGame.getGameVictor().getTeamName() + "				| Wins : " + testSetGame.getGameVictor().getTeamWins() + " Losses : " + testSetGame.getGameVictor().getTeamLoss());
+				
+				if(testSetGame.getGameLoser().getTeamName().equalsIgnoreCase("Revature Ravagers"))
+					System.out.println("Game Loser  : " + testSetGame.getGameLoser().getTeamName() +  "			| Wins : " + testSetGame.getGameLoser().getTeamWins() + " Losses : " + testSetGame.getGameLoser().getTeamLoss());
+				else
+					System.out.println("Game Loser  : " + testSetGame.getGameLoser().getTeamName() +  "				| Wins : " + testSetGame.getGameLoser().getTeamWins() + " Losses : " + testSetGame.getGameLoser().getTeamLoss());
 	
 				System.out.println();
 			return testSetGame;
@@ -270,37 +274,37 @@ import javax.jws.soap.*;
 	private void setTestTeamFPS(ArrayList<TeamResults> teamFPS) {
 		TeamResults Andres = new TeamResults();
 			Andres.setTeamName("Andres Tiburones");
-			Andres.setTeampFPS(new BigDecimal(18));
+			Andres.setTeamFPS(new BigDecimal(18));
 			
 		teamFPS.add(Andres);
 			
 		TeamResults Majal = new TeamResults();
 			Majal.setTeamName("Majal Towers");
-			Majal.setTeampFPS(new BigDecimal(12));
+			Majal.setTeamFPS(new BigDecimal(12));
 		
 		teamFPS.add(Majal);
 		
 		TeamResults Revature = new TeamResults();
 			Revature.setTeamName("Revature Ravagers");
-			Revature.setTeampFPS(new BigDecimal(16));
+			Revature.setTeamFPS(new BigDecimal(16));
 			
 		teamFPS.add(Revature);
 		
 		TeamResults Gordon = new TeamResults();
 			Gordon.setTeamName("Gordon Flashes");
-			Gordon.setTeampFPS(new BigDecimal(2));
+			Gordon.setTeamFPS(new BigDecimal(2));
 			
 		teamFPS.add(Gordon);
 		
 		TeamResults Khalifa = new TeamResults();
 			Khalifa.setTeamName("Khalifa Cheebas");
-			Khalifa.setTeampFPS(new BigDecimal(4));
+			Khalifa.setTeamFPS(new BigDecimal(4));
 			
 		teamFPS.add(Khalifa);
 		
 		TeamResults Dillon = new TeamResults();
 			Dillon.setTeamName("Dillon Dillos");
-			Dillon.setTeampFPS(new BigDecimal(6));
+			Dillon.setTeamFPS(new BigDecimal(6));
 
 		teamFPS.add(Dillon);
 	}

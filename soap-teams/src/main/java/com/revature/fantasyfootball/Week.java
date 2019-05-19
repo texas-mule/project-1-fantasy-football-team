@@ -1,7 +1,5 @@
 package com.revature.fantasyfootball;
 
-import java.lang.reflect.Array;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -166,7 +164,7 @@ public class Week {
 								if(teamScanner.getTeamName().equalsIgnoreCase(resultsScanner.getTeamName())) {
 
 									// Set Team FPS
-									teamScanner.setTeamFPS(resultsScanner.getTeampFPS());
+									teamScanner.setTeamFPS(resultsScanner.getTeamFPS());
 									
 									// Update League
 									System.out.println(" ASSIGNING FPS TEAM ");
@@ -182,7 +180,7 @@ public class Week {
 						
 						FantasyTeam lastTeam = new FantasyTeam();
 						lastTeam = leagueInput.getTeams().get((leagueInput.getNumberOfTeams()-1));
-						lastTeam.setTeamFPS(teamFPS.get((teamFPS.size()-1)).getTeampFPS());
+						lastTeam.setTeamFPS(teamFPS.get((teamFPS.size()-1)).getTeamFPS());
 						leagueOutput.getTeams().add(lastTeam);
 						System.out.println(leagueOutput);
 						

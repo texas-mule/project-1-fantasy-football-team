@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 public class TeamResults {
 
 	String teamName;
-	BigDecimal teampFPS;
+	BigDecimal teamFPS;
 	
 	public String getTeamName() {
 		return teamName;
@@ -13,11 +13,11 @@ public class TeamResults {
 	public void setTeamName(String teamName) {
 		this.teamName = teamName;
 	}
-	public BigDecimal getTeampFPS() {
-		return teampFPS;
+	public BigDecimal getTeamFPS() {
+		return teamFPS;
 	}
-	public void setTeampFPS(BigDecimal teampFPS) {
-		this.teampFPS = teampFPS;
+	public void setTeamFPS(BigDecimal teamFPS) {
+		this.teamFPS = teamFPS;
 	}
 	
 }

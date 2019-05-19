@@ -2,8 +2,6 @@ package com.revature.fantasyfootball;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Random;
 
 // Create An Object To Represent A Game
 public class Game {
@@ -73,18 +71,15 @@ public class Game {
 			// Run A Game
 			// initiates a game
 				public MatchUp setGame(ArrayList<FantasyTeam> availableTeamsForGame, int numberOfTeamsForGame, ArrayList<MatchUp> previouslySelectedMatches) {
-					System.out.println(availableTeamsForGame.size());
-					System.out.println(availableTeamsForGame);
 					// Set Match Up
+					System.out.println("SETTING MATCH UP\n----------------------");
 						this.gameMatchUp.setMatchUp(availableTeamsForGame, numberOfTeamsForGame, previouslySelectedMatches);
 					
-					System.out.println("RUNNING GAME");
+					System.out.println("RUNNING GAME\n");
 					
 					// Decide Victor
 						BigDecimal x=this.gameMatchUp.teamOne.getTeamFPS();
-						System.out.println(x);
 						BigDecimal y=this.gameMatchUp.teamTwo.getTeamFPS();
-						System.out.println(y);
 				
 						// If Team Two Wins
 							if(x.compareTo(y)==-1) {
@@ -103,8 +98,12 @@ public class Game {
 							}
 						
 						// If Its A Draw
-							if(x.compareTo(y)==0)
-								this.gameVictor = null;
+							if(x.compareTo(y)==0) {
+								FantasyTeam drawTeam = new FantasyTeam();
+								drawTeam.setTeamName("DRAW");
+								this.gameVictor = drawTeam;
+								this.gameLoser = drawTeam;
+							}
 					
 					return gameMatchUp;
 				}
