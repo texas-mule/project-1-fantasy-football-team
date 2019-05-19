@@ -6,23 +6,23 @@ import java.util.List;
 
 public class TeamScores {
 
-private String teamname;
-private double score;
+private String teamName;
+private double teamFps;
 public String getTeam() {
-	return teamname;
+	return teamName;
 }
 public void setTeam(String team) {
-	this.teamname = team;
+	this.teamName = team;
 }
-public double getScore() {
-	return score;
+public double getteamFps() {
+	return teamFps;
 }
-public void setScore(double score) {
-	this.score = score;
+public void setteamFps(double teamFps) {
+	this.teamFps = teamFps;
 }
 @Override
 public String toString() {
-	return "team:" + teamname + ", score=" + score +" ";
+	return "team:" + teamName + ", teamFps=" + teamFps +" ";
 }
 
 
