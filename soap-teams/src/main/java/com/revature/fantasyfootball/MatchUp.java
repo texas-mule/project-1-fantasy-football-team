@@ -49,50 +49,139 @@ public class MatchUp {
 			
 		// Select Teams For Match Up
 			// selects random team
-				public void setMatchUp(ArrayList<FantasyTeam> availableTeamsForMatch, int numberOfTeamsForMatch, ArrayList<MatchUp> previouslySelectedMatches) {
+				public void setMatchUp(ArrayList<FantasyTeam> availableTeamsForMatch, int weekNumber, int gameNumber) {
 					// Method Fields
 					
-						// Number of Teams to Select From
-							int numberOfTeamsForMatchAttempt = numberOfTeamsForMatch;
-							
-						// Available Teams to Select From
-							ArrayList<FantasyTeam> availableTeamsForMatchAttempt = new ArrayList<FantasyTeam>();
-							availableTeamsForMatchAttempt.addAll(availableTeamsForMatch);
-							
-						// Iterator to scan through previous matches
-							Iterator<MatchUp> scanPreviousMatches = previouslySelectedMatches.iterator();
-							
-						// Previous Matches
-							MatchUp previousMatchUp = new MatchUp();
-							
-						// Random Integer
-							Random randomSelector = new Random();
-							
-					// Method Implementation
-							
-						// Select Team One
-							this.setTeamOne(availableTeamsForMatchAttempt.get(randomSelector.nextInt(numberOfTeamsForMatchAttempt)));
-							availableTeamsForMatchAttempt.remove(this.teamOne);
-							numberOfTeamsForMatchAttempt--;
-							
-						// Select Team Two
-							this.setTeamTwo(availableTeamsForMatchAttempt.get(randomSelector.nextInt(numberOfTeamsForMatchAttempt)));
-							availableTeamsForMatchAttempt.remove(this.teamTwo);
-							numberOfTeamsForMatchAttempt--;
-							
-						// Check Match Up
-							while(scanPreviousMatches.hasNext()) {
-								
-								// Scan through previous matchups	
-									previousMatchUp = scanPreviousMatches.next();
-								
-								// Check MatchUp
-									if(this.teamOne.getTeamName().equalsIgnoreCase(previousMatchUp.teamOne.getTeamName()) && this.teamTwo.getTeamName().equalsIgnoreCase(previousMatchUp.teamTwo.getTeamName())
-									|| this.teamOne.getTeamName().equalsIgnoreCase(previousMatchUp.teamTwo.getTeamName()) && this.teamTwo.getTeamName().equalsIgnoreCase(previousMatchUp.teamOne.getTeamName())) {
-										// Reselect
-											setMatchUp(availableTeamsForMatch, numberOfTeamsForMatch, previouslySelectedMatches);	
-									}	
+						// Game One
+					
+						if(weekNumber==1 && gameNumber == 1) {
+							for(FantasyTeam team: availableTeamsForMatch) {
+								if(team.getTeamName().equalsIgnoreCase("Gordon Flashes"))
+									this.teamOne = team;
+								if(team.getTeamName().equalsIgnoreCase("Majal Towers"))
+									this.teamTwo = team;
 							}
+						}
+						if(weekNumber==2 && gameNumber == 1) {
+							for(FantasyTeam team: availableTeamsForMatch) {
+								if(team.getTeamName().equalsIgnoreCase("Gordon Flashes"))
+									this.teamOne = team;
+								if(team.getTeamName().equalsIgnoreCase("Andres Tiburones"))
+									this.teamTwo = team;
+							}
+						}
+						if(weekNumber==3 && gameNumber == 1) {
+							for(FantasyTeam team: availableTeamsForMatch) {
+								if(team.getTeamName().equalsIgnoreCase("Gordon Flashes"))
+									this.teamOne = team;
+								if(team.getTeamName().equalsIgnoreCase("Khalifa Cheebas"))
+									this.teamTwo = team;
+							}
+						}
+						if(weekNumber==4 && gameNumber == 1) {
+							for(FantasyTeam team: availableTeamsForMatch) {
+								if(team.getTeamName().equalsIgnoreCase("Gordon Flashes"))
+									this.teamOne = team;
+								if(team.getTeamName().equalsIgnoreCase("Dillon Dillos"))
+									this.teamTwo = team;
+							}
+						}
+						if(weekNumber==5 && gameNumber == 1) {
+							for(FantasyTeam team: availableTeamsForMatch) {
+								if(team.getTeamName().equalsIgnoreCase("Gordon Flashes"))
+									this.teamOne = team;
+								if(team.getTeamName().equalsIgnoreCase("Revature Ravagers"))
+									this.teamTwo = team;
+							}
+						}
+						
+						// Game Two
+						
+						if(weekNumber==1 && gameNumber == 2) {
+							for(FantasyTeam team: availableTeamsForMatch) {
+								if(team.getTeamName().equalsIgnoreCase("Dillon Dillos"))
+									this.teamOne = team;
+								if(team.getTeamName().equalsIgnoreCase("Andres Tiburones"))
+									this.teamTwo = team;
+								
+							}
+						}
+						if(weekNumber==2 && gameNumber == 2) {
+							for(FantasyTeam team: availableTeamsForMatch) {
+								if(team.getTeamName().equalsIgnoreCase("Dillon Dillos"))
+									this.teamOne = team;
+								if(team.getTeamName().equalsIgnoreCase("Revature Ravagers"))
+									this.teamTwo = team;
+							}
+						}
+						if(weekNumber==3 && gameNumber == 2) {
+							for(FantasyTeam team: availableTeamsForMatch) {
+								if(team.getTeamName().equalsIgnoreCase("Dillon Dillos"))
+									this.teamOne = team;
+								if(team.getTeamName().equalsIgnoreCase("Majal Towers"))
+									this.teamTwo = team;
+							}
+						}
+						if(weekNumber==4 && gameNumber == 2) {
+							for(FantasyTeam team: availableTeamsForMatch) {
+								if(team.getTeamName().equalsIgnoreCase("Andres Tiburones"))
+									this.teamOne = team;
+								if(team.getTeamName().equalsIgnoreCase("Khalifa Cheebas"))
+									this.teamTwo = team;
+							}
+						}
+						if(weekNumber==5 && gameNumber == 2) {
+							for(FantasyTeam team: availableTeamsForMatch) {
+								if(team.getTeamName().equalsIgnoreCase("Dillon Dillos"))
+									this.teamOne = team;
+								if(team.getTeamName().equalsIgnoreCase("Khalifa Cheebas"))
+									this.teamTwo = team;
+							}
+						}
+						
+						// Game Three
+						
+						if(weekNumber==1 && gameNumber == 3) {
+							for(FantasyTeam team: availableTeamsForMatch) {
+								if(team.getTeamName().equalsIgnoreCase("Khalifa Cheebas"))
+									this.teamOne = team;
+								if(team.getTeamName().equalsIgnoreCase("Revature Ravagers"))
+									this.teamTwo = team;
+							}
+						}
+						if(weekNumber==2 && gameNumber == 3) {
+							for(FantasyTeam team: availableTeamsForMatch) {
+								if(team.getTeamName().equalsIgnoreCase("Majal Towers"))
+									this.teamOne = team;
+								if(team.getTeamName().equalsIgnoreCase("Khalifa Cheebas"))
+									this.teamTwo = team;
+							}
+						}
+						if(weekNumber==3 && gameNumber == 3) {
+							for(FantasyTeam team: availableTeamsForMatch) {
+								if(team.getTeamName().equalsIgnoreCase("Revature Ravagers"))
+									this.teamOne = team;
+								if(team.getTeamName().equalsIgnoreCase("Andres Tiburones"))
+									this.teamTwo = team;
+							}
+						}
+						if(weekNumber==4 && gameNumber == 3) {
+							for(FantasyTeam team: availableTeamsForMatch) {
+								if(team.getTeamName().equalsIgnoreCase("Majal Towers"))
+									this.teamOne = team;
+								if(team.getTeamName().equalsIgnoreCase("Andres Tiburones"))
+									this.teamTwo = team;
+							}
+						}
+						if(weekNumber==5 && gameNumber == 3) {
+							for(FantasyTeam team: availableTeamsForMatch) {
+								if(team.getTeamName().equalsIgnoreCase("Revature Ravagers"))
+									this.teamOne = team;
+								if(team.getTeamName().equalsIgnoreCase("Majal Towers"))
+									this.teamTwo = team;
+							}
+						}
+							
 							
 						
 				}		

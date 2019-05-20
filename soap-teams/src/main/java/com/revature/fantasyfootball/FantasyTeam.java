@@ -8,36 +8,26 @@ public class FantasyTeam {
 /*******************************************************************************************************************************************/
 /**************************************************** FANTASY TEAM FIELDS ******************************************************************/
 /*******************************************************************************************************************************************/
-	
 	// Fantasy Team Fields
-	
 		// Team SERIAL ID
-			private int teamID;
-			
+			private int teamID;	
 		// Team Name
 			private String teamName;
-			
 		// Team Rank
 			private int teamRank;
-			
 		// Team Fantasy Point Statistic
 			private BigDecimal teamFPS;
-			
 		// Team Number Of Wins
 			private int teamWins;
-			
 		// Team Number Of Losses
 			private int teamLoss;
-			
 		// Team W-L Difference
 			public int wlDifference = (teamWins-teamLoss);
-
+			
 /*******************************************************************************************************************************************/
 /********************************************* FANTASY TEAM GETTERS ANDS SETTERS ***********************************************************/
-/*******************************************************************************************************************************************/	
-			
+/*******************************************************************************************************************************************/		
 	// Fantasy Team Getters and Setters
-			
 		// Team ID
 			public int getTeamID() {
 				return teamID;
@@ -45,7 +35,6 @@ public class FantasyTeam {
 			public void setTeamID(int teamID) {
 				this.teamID = teamID;
 			}
-			
 		// Team Name
 			public String getTeamName() {
 				return teamName;
@@ -53,15 +42,13 @@ public class FantasyTeam {
 			public void setTeamName(String teamName) {
 				this.teamName = teamName;
 			}
-			
 		// Team Rank
 			public int getTeamRank() {
 				return teamRank;
 			}
 			public void setTeamRank(int teamRank) {
 				this.teamRank = teamRank;
-			}
-			
+			}		
 		// Team Fantasy Point
 			public BigDecimal getTeamFPS() {
 				return teamFPS;
@@ -69,23 +56,20 @@ public class FantasyTeam {
 			public void setTeamFPS(BigDecimal teamFPS) {
 				this.teamFPS = teamFPS;
 			}
-		
 		// Team Wins
 			public int getTeamWins() {
 				return teamWins;
 			}
 			public void setTeamWins(int teamWins) {
 				this.teamWins = teamWins;
-			}
-			
+			}		
 		// Team Losses
 			public int getTeamLoss() {
 				return teamLoss;
 			}
 			public void setTeamLoss(int teamLoss) {
 				this.teamLoss = teamLoss;
-			}
-			
+			}		
 		// Win - Loss
 			public int getWlDifference() {
 				return wlDifference;
