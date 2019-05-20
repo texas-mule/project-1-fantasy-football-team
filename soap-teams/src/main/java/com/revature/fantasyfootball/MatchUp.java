@@ -93,6 +93,8 @@ public class MatchUp {
 											setMatchUp(availableTeamsForMatch, numberOfTeamsForMatch, previouslySelectedMatches);	
 									}	
 							}
+							
+						
 				}		
 			
 /*******************************************************************************************************************************************/
@@ -106,7 +108,8 @@ public class MatchUp {
 			public String toString() {
 				return  teamOne.printTeamName() +" vs. "+ teamTwo.printTeamName() + "\n";
 			}
-			public String printMatchUp() {
-				return  teamOne.printTeamName() +" vs. "+ teamTwo.printTeamName();
+			public void printMatchUp() {
+				
+				System.out.println(teamOne.getTeamName()+": " + teamOne.getTeamFPS() + " vs. " + teamTwo.getTeamName()+ ": " + teamTwo.getTeamFPS());
 			}
 }

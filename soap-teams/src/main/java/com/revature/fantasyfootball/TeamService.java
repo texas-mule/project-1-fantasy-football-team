@@ -36,14 +36,15 @@ import javax.jws.WebService;
 /*******************************************************************************************************************************************/
 			
 			@WebMethod
-			public FantasyLeague simWeekFunction(@WebParam(name = "team") ArrayList<TeamResults> teamResults) {
+			public FantasyLeague simWeekFunction(@WebParam(name = "team") ArrayList<TeamResult> teamResults) {
 				System.out.println(" INPUT ");
-				for(TeamResults r:teamResults)
+				for(TeamResult r:teamResults)
 				{
 					System.out.println(r.teamName);
 					System.out.println(r.teamFPS);
 					
 				}
+				
 				
 				// Method Fields
 					
@@ -51,6 +52,15 @@ import javax.jws.WebService;
 						FantasyLeague beginningWeekLeague = new FantasyLeague();
 						beginningWeekLeague.setLeague();
 					
+						for(TeamResult r:teamResults)
+						{
+							for(FantasyTeam team: beginningWeekLeague.getTeams()) {
+								if(team.getTeamName().equalsIgnoreCase(r.getTeamName())) {
+									team.setTeamFPS(r.getTeamFPS());
+									System.out.println(team.getTeamName() + " " +team.getTeamFPS());
+								}
+							}
+						}
 					// Output League
 						FantasyLeague endingWeekLeague = new FantasyLeague();
 						endingWeekLeague.setLeague();
@@ -61,14 +71,14 @@ import javax.jws.WebService;
 						Week thisWeek = new Week();
 					
 					// Team Results
-						ArrayList<TeamResults> teamFPS = new ArrayList<TeamResults>();
+						ArrayList<TeamResult> teamFPS = new ArrayList<TeamResult>();
 						teamFPS.addAll(teamResults);
 					
 				// Method Implementation
 							System.out.println(teamFPS.size());
 							// Updates League Given Previous Week
-							endingWeekLeague = thisWeek.simWeek(beginningWeekLeague, seasonMatchUps, teamFPS);
-							System.out.println(endingWeekLeague.displayTeamsByWins());
+							endingWeekLeague = thisWeek.simWeek(beginningWeekLeague, seasonMatchUps);
+							endingWeekLeague.displayTeamsByWins();
 			
 				seasonMatchUps.addAll(thisWeek.selectedWeeklyMatchUps);
 				
@@ -184,125 +194,173 @@ import javax.jws.WebService;
 				}  
 
 		/******************************/
-		// TESTING RUN GAME FUNCTION //					
+		// TESTING RUN GAME FUNCTION //					FUNCTIONAL √					
 		/*****************************/
-	// tests the method which runs the games
-		public Game testingSetGameFunction() {
-			
-			// Method Fields
-			
-				// Game Return
-					Game testSetGame = new Game();
-					
-				// Previously Selected Match Ups
-					ArrayList<MatchUp> previouslySelectedMatches = new ArrayList<MatchUp>();
-					previouslySelectedMatches.addAll(seasonMatchUps);
-			
-				// League
-					FantasyLeague gameTestLeague = new FantasyLeague();
-					gameTestLeague.setLeague();
+		// tests the method which runs the games
+			public Game testingSetGameFunction(@WebParam(name = "team") ArrayList<TeamResult> teamResults) {
+				
+				// Method Fields
+				
+					// Game Return
+						Game testSetGame = new Game();
 						
+					// Previously Selected Match Ups
+						ArrayList<MatchUp> previouslySelectedMatches = new ArrayList<MatchUp>();
+						previouslySelectedMatches.addAll(seasonMatchUps);
+				
+					// League
+						FantasyLeague gameTestLeague = new FantasyLeague();
+						gameTestLeague.setLeague();
+						
+					// Set League Team FPS
+						
+						// For Each Team Result
+							for(TeamResult result:teamResults)
+							{
+								// For Each Team
+									for(FantasyTeam team: gameTestLeague.getTeams()) {
+										
+										// If Team Result Name == Team Name Assign FPS
+											if(team.getTeamName().equalsIgnoreCase(result.getTeamName())) {
+												team.setTeamFPS(result.getTeamFPS());
+												System.out.println(team.getTeamName() + " " +team.getTeamFPS());
+											}
+									}
+							}
+									
+					// Number of Teams to Select From For Game
+						int numberOfTeamsForGame = gameTestLeague.getTeams().size();
+									
+						
+				// Method Implementation
 					
-				// Available Teams To Select From For Game
-					ArrayList<FantasyTeam> availableTeamsForGame =  new ArrayList<FantasyTeam>();
-					availableTeamsForGame.addAll(gameTestLeague.getTeams());
-								
-				// Number of Teams to Select From For Game
-					int numberOfTeamsForGame = gameTestLeague.getNumberOfTeams();
-								
+					// Play The Game
+					testSetGame.setGame(gameTestLeague.getTeams(), numberOfTeamsForGame, previouslySelectedMatches);	
 					
-			// Method Implementation
-				
-				testSetGame.setGame(availableTeamsForGame, numberOfTeamsForGame, previouslySelectedMatches);	
-				
-				System.out.println(testSetGame.getGameMatchUp());
-				
-				if(testSetGame.getGameVictor().getTeamName().equalsIgnoreCase("Revature Ravagers"))
-					System.out.println("Game Victor : " + testSetGame.getGameVictor().getTeamName() + "			| Wins : " + testSetGame.getGameVictor().getTeamWins() + " Losses : " + testSetGame.getGameVictor().getTeamLoss());
-				else
-					System.out.println("Game Victor : " + testSetGame.getGameVictor().getTeamName() + "				| Wins : " + testSetGame.getGameVictor().getTeamWins() + " Losses : " + testSetGame.getGameVictor().getTeamLoss());
-				
-				if(testSetGame.getGameLoser().getTeamName().equalsIgnoreCase("Revature Ravagers"))
-					System.out.println("Game Loser  : " + testSetGame.getGameLoser().getTeamName() +  "			| Wins : " + testSetGame.getGameLoser().getTeamWins() + " Losses : " + testSetGame.getGameLoser().getTeamLoss());
-				else
-					System.out.println("Game Loser  : " + testSetGame.getGameLoser().getTeamName() +  "				| Wins : " + testSetGame.getGameLoser().getTeamWins() + " Losses : " + testSetGame.getGameLoser().getTeamLoss());
-	
-				System.out.println();
-			return testSetGame;
-		}
-	
-	// Testing Simulate Week Method
-	// tests the method which simulates a single week
-	public FantasyLeague testingSimWeekFunction() {
+					// Print Match Up
+					testSetGame.getGameMatchUp().printMatchUp();
+					
+					System.out.println("---------------------------");
+					
+					if(testSetGame.getGameVictor().getTeamName().equalsIgnoreCase("Revature Ravagers"))
+						System.out.println("Game Victor : " + testSetGame.getGameVictor().getTeamName() + "			| Wins : " + testSetGame.getGameVictor().getTeamWins() + " Losses : " + testSetGame.getGameVictor().getTeamLoss());
+					else
+						System.out.println("Game Victor : " + testSetGame.getGameVictor().getTeamName() + "			| Wins : " + testSetGame.getGameVictor().getTeamWins() + " Losses : " + testSetGame.getGameVictor().getTeamLoss());
+					
+					if(testSetGame.getGameLoser().getTeamName().equalsIgnoreCase("Revature Ravagers"))
+						System.out.println("Game Loser  : " + testSetGame.getGameLoser().getTeamName() +  "			| Wins : " + testSetGame.getGameLoser().getTeamWins() + " Losses : " + testSetGame.getGameLoser().getTeamLoss());
+					else
+						System.out.println("Game Loser  : " + testSetGame.getGameLoser().getTeamName() +  "			| Wins : " + testSetGame.getGameLoser().getTeamWins() + " Losses : " + testSetGame.getGameLoser().getTeamLoss());
 		
-		// Method Fields
-			
-			// Input League
-				FantasyLeague beginningWeekLeague = new FantasyLeague();
-				beginningWeekLeague.setLeague();
-			
-			// Output League
-				FantasyLeague endingWeekLeague = new FantasyLeague();
-				endingWeekLeague.setLeague();
+					System.out.println();
+							
+				gameTestLeague.displayTeamsByWins();
 				
-			// Current Week 		
-				System.out.println("------------------------------- \n");
-				System.out.println("Week Number : " + weekNumber);
-				Week thisWeek = new Week();
-			
-			// Team Results
-				ArrayList<TeamResults> teamFPS = new ArrayList<TeamResults>();
-					setTestTeamFPS(teamFPS);
-			
-		// Method Implementation
-					
-					// Updates League Given Previous Week
-					System.out.println(beginningWeekLeague.displayTeamsByWins());
-					endingWeekLeague = thisWeek.simWeek(beginningWeekLeague, seasonMatchUps, teamFPS);
-					System.out.println(endingWeekLeague.displayTeamsByWins());
+				return testSetGame;
+			}
 	
-		seasonMatchUps.addAll(thisWeek.selectedWeeklyMatchUps);
-		
-		weekNumber++;
-		endingWeekLeague.setNumberOfTeams(endingWeekLeague.getTeams().size());
+		/********************************/
+		// Testing Simulate Week Method // 
+		/********************************/
+		// tests the method which simulates a single week
+			@WebMethod
+			public FantasyLeague testingSimWeekFunction(@WebParam(name = "team") ArrayList<TeamResult> teamResults) {
+				
+				// Method Fields
+				
+					// Input Results
+						System.out.println(" INPUT \n");
+						for(TeamResult r:teamResults)
+						{
+							if(r.teamName.equalsIgnoreCase("Majal Towers"))
+								System.out.println(r.teamName + " : " + "	 	 FPS: " + r.teamFPS);
+							else
+								System.out.println(r.teamName + " : " + "	 FPS: " + r.teamFPS);
+							
+							System.out.println("------------------------------------------------");
+							
+						}
+					
+					// Input League
+						System.out.println("\n-----------------------------------------------------------------");
+						System.out.println("SETTING LEAGUE FPS\n");
+						FantasyLeague beginningWeekLeague = new FantasyLeague();
+						beginningWeekLeague.setLeague();
+						for(TeamResult r:teamResults)
+						{
+							for(FantasyTeam team: beginningWeekLeague.getTeams()) {
+								if(team.getTeamName().equalsIgnoreCase(r.getTeamName())) {
+									team.setTeamFPS(r.getTeamFPS());
+									if(r.teamName.equalsIgnoreCase("Majal Towers"))
+										System.out.println(r.teamName + " : " + "	 	 FPS: " + r.teamFPS);
+									else
+										System.out.println(r.teamName + " : " + "	 FPS: " + r.teamFPS);
+									
+									System.out.println("------------------------------------------------");
+								}
+							}
+						}
+						
+					// Output League
+						FantasyLeague endingWeekLeague = new FantasyLeague();
+						endingWeekLeague.setLeague();
+						
+					// Current Week 		
+						System.out.println("Week Number : " + weekNumber);
+						Week thisWeek = new Week();
+					
+					// Team Results
+						ArrayList<TeamResult> teamFPS = new ArrayList<TeamResult>();
+						teamFPS.addAll(teamResults);
+					
+				// Method Implementation
+							// Updates League Given Previous Week
+							endingWeekLeague = thisWeek.simWeek(beginningWeekLeague, seasonMatchUps);
+							endingWeekLeague.displayTeamsByWinsStats();
+			
+				seasonMatchUps.addAll(thisWeek.selectedWeeklyMatchUps);
+				
+				weekNumber++;
+				endingWeekLeague.setNumberOfTeams(endingWeekLeague.getTeams().size());
 
-		endingWeekLeague.endSimulation(endingWeekLeague);
-		
-		return endingWeekLeague;
-	}
+				endingWeekLeague.updateLeagueRanks();
+				endingWeekLeague.endSimulation(endingWeekLeague);
+				
+				return endingWeekLeague;
+			}
 
-	private void setTestTeamFPS(ArrayList<TeamResults> teamFPS) {
-		TeamResults Andres = new TeamResults();
+	private void setTestTeamFPS(ArrayList<TeamResult> teamFPS) {
+		TeamResult Andres = new TeamResult();
 			Andres.setTeamName("Andres Tiburones");
 			Andres.setTeamFPS(new BigDecimal(18));
 			
 		teamFPS.add(Andres);
 			
-		TeamResults Majal = new TeamResults();
+		TeamResult Majal = new TeamResult();
 			Majal.setTeamName("Majal Towers");
 			Majal.setTeamFPS(new BigDecimal(12));
 		
 		teamFPS.add(Majal);
 		
-		TeamResults Revature = new TeamResults();
+		TeamResult Revature = new TeamResult();
 			Revature.setTeamName("Revature Ravagers");
 			Revature.setTeamFPS(new BigDecimal(16));
 			
 		teamFPS.add(Revature);
 		
-		TeamResults Gordon = new TeamResults();
+		TeamResult Gordon = new TeamResult();
 			Gordon.setTeamName("Gordon Flashes");
 			Gordon.setTeamFPS(new BigDecimal(2));
 			
 		teamFPS.add(Gordon);
 		
-		TeamResults Khalifa = new TeamResults();
+		TeamResult Khalifa = new TeamResult();
 			Khalifa.setTeamName("Khalifa Cheebas");
 			Khalifa.setTeamFPS(new BigDecimal(4));
 			
 		teamFPS.add(Khalifa);
 		
-		TeamResults Dillon = new TeamResults();
+		TeamResult Dillon = new TeamResult();
 			Dillon.setTeamName("Dillon Dillos");
 			Dillon.setTeamFPS(new BigDecimal(6));
 

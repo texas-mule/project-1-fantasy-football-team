@@ -122,9 +122,12 @@ public class Week {
 			// Simulate Week
 			// simulates three games to represent an entire week
 			
-				public FantasyLeague simWeek(FantasyLeague leagueInput, ArrayList<MatchUp> seasonSelectedMatchUps, ArrayList<TeamResults> teamFPS) {
+				public FantasyLeague simWeek(FantasyLeague leagueInput, ArrayList<MatchUp> seasonSelectedMatchUps) {
 					
 					// Method Fields
+					
+						// Return League
+							FantasyLeague endOfWeekLeague = new FantasyLeague();
 					
 						// League Input
 							int numberOfTeams = leagueInput.getNumberOfTeams();
@@ -132,62 +135,9 @@ public class Week {
 						// Available Teams For Week
 							availableTeamsForWeekMatchups.addAll(leagueInput.getTeams());
 							
-	
-						// Scanner for Team Results Array
-							Iterator<TeamResults> scanTeamFPS = teamFPS.iterator();
-							
-							
-						// Assign Result to Relevant Teams
-						// for the length of Results Scanner;
-						// Search Through Team Results
-						while(scanTeamFPS.hasNext()) {
-					
-							// Scanner for Available Teams
-							Iterator<FantasyTeam> scanAvailableTeamsForName = availableTeamsForWeekMatchups.iterator();
-							
-							// Team Results Object
-							TeamResults resultsScanner = new TeamResults();
-							
-							// Team Object
-							FantasyTeam teamScanner = new FantasyTeam();
-							
-							// Next Team Result
-							resultsScanner = scanTeamFPS.next();
-					
-							// Next Team
-							teamScanner = scanAvailableTeamsForName.next();
-			
-							//  Search Through Available Teams
-							while(scanAvailableTeamsForName.hasNext()) {
-
-								// If Team Results and Team Name Match
-								if(teamScanner.getTeamName().equalsIgnoreCase(resultsScanner.getTeamName())) {
-
-									// Set Team FPS
-									teamScanner.setTeamFPS(resultsScanner.getTeamFPS());
-									
-									// Update League
-									System.out.println(" ASSIGNING FPS TEAM ");
-									leagueOutput.getTeams().add(teamScanner);
-									
-									break;
-								}
-								else {
-									teamScanner = scanAvailableTeamsForName.next();				
-								}
-							}
-						}
-						
-						FantasyTeam lastTeam = new FantasyTeam();
-						lastTeam = leagueInput.getTeams().get((leagueInput.getNumberOfTeams()-1));
-						lastTeam.setTeamFPS(teamFPS.get((teamFPS.size()-1)).getTeamFPS());
-						leagueOutput.getTeams().add(lastTeam);
-						System.out.println(leagueOutput);
 						
 						// Game One
 							System.out.println("GAME ONE");
-							availableTeamsForWeekMatchups.clear();
-							availableTeamsForWeekMatchups.addAll(leagueOutput.getTeams());
 							selectedWeeklyMatchUps.add(GameOne.setGame(availableTeamsForWeekMatchups, numberOfTeams, seasonSelectedMatchUps));
 							System.out.println(GameOne.getGameMatchUp());
 							System.out.println(GameOne.getGameVictor());
@@ -218,7 +168,10 @@ public class Week {
 
 							System.out.println();
 						
+							seasonSelectedMatchUps.addAll(selectedWeeklyMatchUps);
+							
+							endOfWeekLeague.setTeams(leagueInput.getTeams());
 						
-					return leagueOutput;
+					return endOfWeekLeague;
 				}
 }
