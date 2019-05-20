@@ -20,7 +20,7 @@ http://www.mulesoft.org/schema/mule/xml http://www.mulesoft.org/schema/mule/xml/
     <ws:consumer-config name="Web_Service_Consumer" wsdlLocation="http://localhost:8585/FantasyTeams?wsdl" service="TeamServiceService" port="TeamServicePort" serviceAddress="http://localhost:8585/FantasyTeams" doc:name="Web Service Consumer"/>
     <flow name="ShowAllPlayers" initialState="started" doc:description="works">
         <http:listener config-ref="HTTP_Listener_Configuration" path="/draft" allowedMethods="GET" doc:name="HTTP"/>
-        <http:request config-ref="HTTP_Request_Configuration" path="/fantasy/player" method="GET" doc:name="REST"/>
+        <http:request config-ref="HTTP_Request_Configuration" path="/fantasy/players" method="GET" doc:name="REST"/>
     </flow>
     <flow name="FreeAgentsDraft">
         <http:listener config-ref="HTTP_Listener_Configuration" path="/freeagents/draft/{teamname}/{playerid}" allowedMethods="GET" doc:name="HTTP"/>
