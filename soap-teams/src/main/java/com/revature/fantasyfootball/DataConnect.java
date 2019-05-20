@@ -15,28 +15,21 @@ public class DataConnect {
 /*******************************************************************************************************************************************/
 /**************************************************** CONNECTION FIELDS ********************************************************************/
 /*******************************************************************************************************************************************/
-
 	// Connection Fields
-	
 		// Database URL
 			String url = "jdbc:postgresql://hansken.db.elephantsql.com:5432/wzdpteqa";
-			
 		// Database Username
 			String username = "wzdpteqa";
-			
 		// Database Password
 			String password = "Zvy785zIsosVoVrrPpnOxfRQBBlIki_u";
-			
 		// Team Counter
 			int teamCounter;
-			
 		// Fantasy League Information
 			ArrayList<FantasyTeam> fantasyLeagueInformation = new ArrayList<>();
 			
 /*******************************************************************************************************************************************/
 /********************************************* CONNECTION GETTERS AND SETTERS ***********************************************************/
 /*******************************************************************************************************************************************/	
-	
 	// Connection Getters and Setters
 			
 		// Fantasy League Information		
@@ -87,9 +80,8 @@ public class DataConnect {
 									team.setTeamID(resultSet.getInt(1));
 									team.setTeamName(resultSet.getString(2));
 									team.setTeamRank(resultSet.getInt(3));
-									team.setTeamFPS(resultSet.getBigDecimal(4));
-									team.setTeamWins(resultSet.getInt(5));
-							    	team.setTeamLoss(resultSet.getInt(6));
+									team.setTeamWins(resultSet.getInt(4));
+							    	team.setTeamLoss(resultSet.getInt(5));
 							    	
 						    	// Add Team To League Data
 							    	fantasyLeagueInformation.add(team);

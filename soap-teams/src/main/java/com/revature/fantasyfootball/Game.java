@@ -70,10 +70,10 @@ public class Game {
 			
 			// Run A Game
 			// initiates a game
-				public MatchUp setGame(ArrayList<FantasyTeam> availableTeamsForGame, int numberOfTeamsForGame, ArrayList<MatchUp> previouslySelectedMatches) {
+				public MatchUp setGame(ArrayList<FantasyTeam> availableTeamsForGame, int weekNumber, int gameNumber) {
 					// Set Match Up
 					System.out.println("SETTING MATCH UP\n----------------------");
-						this.gameMatchUp.setMatchUp(availableTeamsForGame, numberOfTeamsForGame, previouslySelectedMatches);
+						this.gameMatchUp.setMatchUp(availableTeamsForGame, weekNumber,  gameNumber);
 					
 					System.out.println("RUNNING GAME\n");
 					
