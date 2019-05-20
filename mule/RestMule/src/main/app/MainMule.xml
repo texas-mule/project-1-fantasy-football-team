@@ -75,6 +75,18 @@ http://www.mulesoft.org/schema/mule/xml http://www.mulesoft.org/schema/mule/xml/
         <http:listener config-ref="HTTP_Listener_Configuration" path="/simtest" allowedMethods="GET" doc:name="HTTP"/>
         <http:request config-ref="HTTP_Request_Configuration" path="/scores" method="GET" doc:name="HTTP"/>
         <response>
+            <dw:transform-message doc:name="Transform Message">
+                <dw:set-payload><![CDATA[%dw 1.0
+%input payload application/xml
+%output application/json
+%namespace ns0 http://fantasyfootball.revature.com/
+---
+{
+	
+}]]></dw:set-payload>
+            </dw:transform-message>
+        </response>
+        <response>
             <ws:consumer config-ref="Web_Service_Consumer" operation="simWeekFunction" doc:name="Web Service Consumer"/>
         </response>
         <response>
