@@ -29,6 +29,9 @@ public class FantasyTeam {
 		// Team Number Of Losses
 			private int teamLoss;
 			
+		// Team W-L Difference
+			public int wlDifference = (teamWins-teamLoss);
+
 /*******************************************************************************************************************************************/
 /********************************************* FANTASY TEAM GETTERS ANDS SETTERS ***********************************************************/
 /*******************************************************************************************************************************************/	
@@ -82,6 +85,11 @@ public class FantasyTeam {
 			public void setTeamLoss(int teamLoss) {
 				this.teamLoss = teamLoss;
 			}
+			
+		// Win - Loss
+			public int getWlDifference() {
+				return wlDifference;
+			}
 
 /*******************************************************************************************************************************************/
 /********************************************** FANTASY TEAM FUNCTIONS *********************************************************************/
@@ -93,12 +101,14 @@ public class FantasyTeam {
 		// increments team wins field given the team wins a game	
 			public void teamHasWon() {
 				this.teamWins++;
+				wlDifference = (teamWins-teamLoss);
 			}
 		
 		// Team Has Lost A Game
 		// increments team losses field given the team loses a game
 			public void teamHasLoss() {
 				this.teamLoss++;
+				wlDifference = (teamWins-teamLoss);
 			}
 			
 /*******************************************************************************************************************************************/
@@ -109,7 +119,7 @@ public class FantasyTeam {
 			
 		// OverWrite toString
 			public String toString() {
-				String printStatement = printTeamStats();
+				String printStatement = printTeamFPS();
 				return printStatement;
 			}
 		

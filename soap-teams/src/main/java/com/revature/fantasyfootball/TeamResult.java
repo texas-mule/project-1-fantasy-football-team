@@ -2,7 +2,7 @@ package com.revature.fantasyfootball;
 
 import java.math.BigDecimal;
 
-public class TeamResults {
+public class TeamResult {
 
 	String teamName;
 	BigDecimal teamFPS;

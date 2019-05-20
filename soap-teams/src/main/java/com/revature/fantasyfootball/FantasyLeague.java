@@ -120,9 +120,30 @@ public class FantasyLeague {
 				
 		// Display Teams
 		// print league by alphabetical name
-			public String displayTeamsByWins() {
-				Comparator<FantasyTeam> sortByName =Comparator.comparing(FantasyTeam::getTeamWins);  
-				Collections.sort(teams,sortByName);  
-				return " " + teams ;
+			public void displayTeamsByWins() {
+				Comparator<FantasyTeam> sortByName =Comparator.comparing(FantasyTeam:: getWlDifference);  
+				Collections.sort(teams,sortByName);
+				Collections.reverse(teams);
+				
+				for(FantasyTeam printByWinTeam: teams) {
+//					if(printByWinTeam.getTeamName().equalsIgnoreCase("Gordon Flashes")|| printByWinTeam.getTeamName().equalsIgnoreCase("Majal Towers") || printByWinTeam.getTeamName().equalsIgnoreCase("Dillon Dillos"))
+//						System.out.println(printByWinTeam.getTeamName() + " 		Wins : " + printByWinTeam.getTeamWins() + " Losses : " + printByWinTeam.getTeamLoss());
+//					else
+						//System.out.println(printByWinTeam.getTeamName() + " 	Wins : " + printByWinTeam.getTeamWins() + " Losses : " + printByWinTeam.getTeamLoss());
+				System.out.println(printByWinTeam.getTeamName() + " " + printByWinTeam.getWlDifference());
+				}
+			}
+			public void displayTeamsByWinsStats() {
+				Comparator<FantasyTeam> sortByName =Comparator.comparing(FantasyTeam:: getWlDifference);  
+				Collections.sort(teams,sortByName);
+				Collections.reverse(teams);
+				
+				for(FantasyTeam printByWinTeam: teams) {
+//					if(printByWinTeam.getTeamName().equalsIgnoreCase("Gordon Flashes")|| printByWinTeam.getTeamName().equalsIgnoreCase("Majal Towers") || printByWinTeam.getTeamName().equalsIgnoreCase("Dillon Dillos"))
+//						System.out.println(printByWinTeam.getTeamName() + " 		Wins : " + printByWinTeam.getTeamWins() + " Losses : " + printByWinTeam.getTeamLoss());
+//					else
+						//System.out.println(printByWinTeam.getTeamName() + " 	Wins : " + printByWinTeam.getTeamWins() + " Losses : " + printByWinTeam.getTeamLoss());
+				System.out.println(printByWinTeam.getTeamName() + " Wins :  " + printByWinTeam.getTeamWins() + "  Losses : " + printByWinTeam.getTeamLoss());
+				}
 			}
 }
