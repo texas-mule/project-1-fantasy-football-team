@@ -37,36 +37,47 @@ import javax.jws.WebService;
 			
 			@WebMethod
 			public FantasyLeague simWeekFunction(@WebParam(name = "team") ArrayList<TeamResult> teamResults) {
-				System.out.println(" INPUT ");
-				for(TeamResult r:teamResults)
-				{
-					System.out.println(r.teamName);
-					System.out.println(r.teamFPS);
-					
-				}
-				
-				
+
 				// Method Fields
+				
+					// Input Results
+						System.out.println(" INPUT \n");
+						for(TeamResult r:teamResults)
+						{
+							if(r.teamName.equalsIgnoreCase("Majal Towers"))
+								System.out.println(r.teamName + " : " + "	 	 FPS: " + r.teamFPS);
+							else
+								System.out.println(r.teamName + " : " + "	 FPS: " + r.teamFPS);
+							
+							System.out.println("------------------------------------------------");
+							
+						}
 					
 					// Input League
+						System.out.println("\n-----------------------------------------------------------------");
+						System.out.println("SETTING LEAGUE FPS\n");
 						FantasyLeague beginningWeekLeague = new FantasyLeague();
 						beginningWeekLeague.setLeague();
-					
 						for(TeamResult r:teamResults)
 						{
 							for(FantasyTeam team: beginningWeekLeague.getTeams()) {
 								if(team.getTeamName().equalsIgnoreCase(r.getTeamName())) {
 									team.setTeamFPS(r.getTeamFPS());
-									System.out.println(team.getTeamName() + " " +team.getTeamFPS());
+									if(r.teamName.equalsIgnoreCase("Majal Towers"))
+										System.out.println(r.teamName + " : " + "	 	 FPS: " + r.teamFPS);
+									else
+										System.out.println(r.teamName + " : " + "	 FPS: " + r.teamFPS);
+									
+									System.out.println("------------------------------------------------");
 								}
 							}
 						}
+						
 					// Output League
 						FantasyLeague endingWeekLeague = new FantasyLeague();
 						endingWeekLeague.setLeague();
 						
 					// Current Week 		
-						System.out.println("------------------------------- \n");
 						System.out.println("Week Number : " + weekNumber);
 						Week thisWeek = new Week();
 					
@@ -75,16 +86,16 @@ import javax.jws.WebService;
 						teamFPS.addAll(teamResults);
 					
 				// Method Implementation
-							System.out.println(teamFPS.size());
 							// Updates League Given Previous Week
 							endingWeekLeague = thisWeek.simWeek(beginningWeekLeague, seasonMatchUps);
-							endingWeekLeague.displayTeamsByWins();
+							endingWeekLeague.displayTeamsByWinsStats();
 			
 				seasonMatchUps.addAll(thisWeek.selectedWeeklyMatchUps);
 				
 				weekNumber++;
 				endingWeekLeague.setNumberOfTeams(endingWeekLeague.getTeams().size());
 
+				endingWeekLeague.updateLeagueRanks();
 				endingWeekLeague.endSimulation(endingWeekLeague);
 				
 				return endingWeekLeague;
