@@ -50,17 +50,14 @@ public class MatchUp {
 		// Select Teams For Match Up
 			// selects random team
 				public void setMatchUp(ArrayList<FantasyTeam> availableTeamsForMatch, int numberOfTeamsForMatch, ArrayList<MatchUp> previouslySelectedMatches) {
-					System.out.println(" SETTING MATCH ");
 					// Method Fields
 					
 						// Number of Teams to Select From
 							int numberOfTeamsForMatchAttempt = numberOfTeamsForMatch;
-							System.out.println(numberOfTeamsForMatchAttempt);
 							
 						// Available Teams to Select From
 							ArrayList<FantasyTeam> availableTeamsForMatchAttempt = new ArrayList<FantasyTeam>();
 							availableTeamsForMatchAttempt.addAll(availableTeamsForMatch);
-							System.out.println(availableTeamsForMatchAttempt.size());
 							
 						// Iterator to scan through previous matches
 							Iterator<MatchUp> scanPreviousMatches = previouslySelectedMatches.iterator();
