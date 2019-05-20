@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:ws="http://www.mulesoft.org/schema/mule/ws" xmlns:apikit-soap="http://www.mulesoft.org/schema/mule/apikit-soap" xmlns:metadata="http://www.mulesoft.org/schema/mule/metadata" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+<mule xmlns:mulexml="http://www.mulesoft.org/schema/mule/xml" xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:ws="http://www.mulesoft.org/schema/mule/ws" xmlns:apikit-soap="http://www.mulesoft.org/schema/mule/apikit-soap" xmlns:metadata="http://www.mulesoft.org/schema/mule/metadata" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
 	xmlns:spring="http://www.springframework.org/schema/beans" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
@@ -9,7 +9,9 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
 http://www.mulesoft.org/schema/mule/apikit-soap http://www.mulesoft.org/schema/mule/apikit-soap/current/mule-apikit-soap.xsd
 http://www.mulesoft.org/schema/mule/ws http://www.mulesoft.org/schema/mule/ws/current/mule-ws.xsd
-http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd">
+http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
+http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd
+http://www.mulesoft.org/schema/mule/xml http://www.mulesoft.org/schema/mule/xml/current/mule-xml.xsd">
     <http:listener-config name="HTTP_Listener_Configuration" host="localhost" port="8080" doc:name="HTTP Listener Configuration" basePath="/mule"/>
 	<http:request-config name="HTTP_Request_Configuration" host="localhost" port="4242"  doc:name="HTTP Request Configuration" basePath="/rest/v1"/>
     <http:listener-config name="HTTP_Listener_Configuration1" host="0.0.0.0" port="8081" doc:name="HTTP Listener Configuration"/>
@@ -40,13 +42,56 @@ http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/jso
             </http:request-builder>
         </http:request>
     </flow>
-    <flow name="Teams">
-        <http:listener config-ref="HTTP_Listener_Configuration" path="/teams" allowedMethods="GET" doc:name="HTTP"/>
+    <flow name="SimulateWeek">
+        <http:listener config-ref="HTTP_Listener_Configuration" path="/simweek" allowedMethods="GET" doc:name="HTTP"/>
         <response>
             <json:xml-to-json-transformer doc:name="XML to JSON"/>
         </response>
+
+        <http:request config-ref="HTTP_Request_Configuration" path="/scores" method="GET" doc:name="HTTP"/>
         <response>
-            <ws:consumer config-ref="Web_Service_Consumer" operation="displayTeams" doc:name="Web Service Consumer"/>
+            <ws:consumer config-ref="Web_Service_Consumer" operation="simWeekFunction" doc:name="Web Service Consumer"/>
+        </response>
+        <response>
+            <dw:transform-message doc:name="Transform Message">
+                <dw:set-payload><![CDATA[%dw 1.0
+%input payload application/json
+%output application/xml
+---
+
+{
+(payload map {simWeekFunction @(xmlns: "http://fantasyfootball.revature.com/"):{
+	//team:{teamName:$.map.team.teamName,teamFPS:$.map.team.teamName}
+	($ map {team @(xmlns: ""):{teamName:$.map.team.teamName,teamFPS:$.map.team.teamFPS}})
+}})
+//payload
+}]]></dw:set-payload>
+            </dw:transform-message>
+        </response>
+
+
+    </flow>
+    <flow name="SimWeektest">
+        <http:listener config-ref="HTTP_Listener_Configuration" path="/simtest" allowedMethods="GET" doc:name="HTTP"/>
+        <http:request config-ref="HTTP_Request_Configuration" path="/scores" method="GET" doc:name="HTTP"/>
+        <response>
+            <ws:consumer config-ref="Web_Service_Consumer" operation="simWeekFunction" doc:name="Web Service Consumer"/>
+        </response>
+        <response>
+            <dw:transform-message doc:name="Transform Message">
+                <dw:set-payload><![CDATA[%dw 1.0
+%input payload application/json
+%output application/xml
+---
+
+{
+(payload map {simWeekFunction @(xmlns: "http://fantasyfootball.revature.com/"):{
+	//team:{teamName:$.map.team.teamName,teamFPS:$.map.team.teamName}
+	($ map {team @(xmlns: ""):{teamName:$.map.team.teamName,teamFPS:$.map.team.teamFPS}})
+}})
+//payload
+}]]></dw:set-payload>
+            </dw:transform-message>
         </response>
     </flow>
     <flow name="MuleCheck">
@@ -72,6 +117,7 @@ http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/jso
         <response>
             <json:json-to-xml-transformer doc:name="JSON to XML"/>
         </response>
+
     </flow>
     <flow name="MainMuleFlow">
         <http:listener config-ref="HTTP_Listener_Configuration1" path="/rest" allowedMethods="GET" doc:name="HTTP"/>
