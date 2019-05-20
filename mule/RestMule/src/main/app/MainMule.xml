@@ -140,6 +140,15 @@ http://www.mulesoft.org/schema/mule/xml http://www.mulesoft.org/schema/mule/xml/
         </response>
 
     </flow>
+    <flow name="ViewTeam">
+        <http:listener config-ref="HTTP_Listener_Configuration" path="/team/{teamname}" allowedMethods="GET" doc:name="HTTP"/>
+        <set-variable variableName="teamname" value="#[message.inboundProperties.'http.uri.params'.teamname]" doc:name="Variable"/>
+        <http:request config-ref="HTTP_Request_Configuration" path="/team/{teamname}" method="GET" doc:name="HTTP">
+            <http:request-builder>
+                <http:uri-param paramName="teamname" value="#[flowVars.teamname]"/>
+            </http:request-builder>
+        </http:request>
+    </flow>
     <flow name="MainMuleFlow">
         <http:listener config-ref="HTTP_Listener_Configuration1" path="/rest" allowedMethods="GET" doc:name="HTTP"/>
         <http:request config-ref="HTTP_Request_Configuration" path="/player" method="GET" doc:name="HTTP"/>
