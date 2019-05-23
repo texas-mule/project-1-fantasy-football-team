@@ -5,7 +5,7 @@ Created by Andres, Mohamad, Shaun
 A Fantasy Football Mule API
 
 
-REST EndPoints:
+## REST EndPoints:
 
 
 /rest/fantasy/players-gets all the players
@@ -25,11 +25,10 @@ REST EndPoints:
 
 
 
-
 ------------------------------------------------------------------------------------------------------------------------------
 
 
-Functionalites:
+## Functionalites:
 
 Draft: updating the players fantasy team information to reflect what team they have drafted by. 
 
