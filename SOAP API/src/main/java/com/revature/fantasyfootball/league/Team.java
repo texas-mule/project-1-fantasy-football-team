@@ -1,8 +1,15 @@
-package com.revature.fantasyfootball2;
+package com.revature.fantasyfootball.league;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
 // Create An Object To Represent A Team
+@Entity
+@Table(name="testleague")
 public class Team {
 
 /**************************************************************************************/
@@ -12,7 +19,7 @@ public class Team {
 	// Fantasy Team Fields
 	
 		// Team Serial ID
-			private int teamID;
+			@Id private int teamID;
 			
 		// Team Name
 			private String teamName;
@@ -21,16 +28,16 @@ public class Team {
 			private int teamRank;
 			
 		// Team Fantasy Point Statistic
-			private BigDecimal teamFPS;
+			@Transient private BigDecimal teamFPS;
 			
 		// Team Wins
 			private int teamWinStat;
 			
 		// Team Losses
-			private int teamLossStat;
+			@Transient private int teamLossStat;
 			
 		// Team Win - Loss Ratio
-			private int teamWLRatio;
+			@Transient private int teamWLRatio;
 
 		
 			

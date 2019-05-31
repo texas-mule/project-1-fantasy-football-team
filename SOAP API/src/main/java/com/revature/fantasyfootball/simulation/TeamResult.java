@@ -1,4 +1,4 @@
-package com.revature.fantasyfootball2;
+package com.revature.fantasyfootball.simulation;
 
 import java.math.BigDecimal;
 
