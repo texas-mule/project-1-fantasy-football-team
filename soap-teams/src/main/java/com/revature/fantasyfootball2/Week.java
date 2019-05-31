@@ -1,4 +1,4 @@
-package com.revature.fantasyfootball;
+package com.revature.fantasyfootball2;
 
 import java.util.ArrayList;
 import java.util.Iterator;

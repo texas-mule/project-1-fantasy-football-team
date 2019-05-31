@@ -1,4 +1,4 @@
-package com.revature.fantasyfootball;
+package com.revature.fantasyfootball2;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

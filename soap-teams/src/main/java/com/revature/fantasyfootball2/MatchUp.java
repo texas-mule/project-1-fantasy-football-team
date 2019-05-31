@@ -1,4 +1,4 @@
-package com.revature.fantasyfootball;
+package com.revature.fantasyfootball2;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -200,5 +200,13 @@ public class MatchUp {
 			public void printMatchUp() {
 				
 				System.out.println(teamOne.getTeamName()+": " + teamOne.getTeamFPS() + " vs. " + teamTwo.getTeamName()+ ": " + teamTwo.getTeamFPS());
+			}
+			public void setMatchUp(ArrayList<FantasyTeam> teams, int numberOfTeams, ArrayList<MatchUp> seasonMatchUps) {
+				// TODO Auto-generated method stub
+				
+			}
+			public void setMatchUp(ArrayList<FantasyTeam> teams, int size, ArrayList<MatchUp> seasonMatchUps) {
+				// TODO Auto-generated method stub
+				
 			}
 }

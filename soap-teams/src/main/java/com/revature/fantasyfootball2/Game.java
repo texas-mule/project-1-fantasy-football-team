@@ -1,4 +1,4 @@
-package com.revature.fantasyfootball;
+package com.revature.fantasyfootball2;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

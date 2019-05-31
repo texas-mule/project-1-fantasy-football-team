@@ -1,4 +1,4 @@
-package com.revature.fantasyfootball;
+package com.revature.fantasyfootball2;
 
 import java.util.ArrayList;
 
@@ -9,7 +9,6 @@ public class TestWeekSimulationClass {
 	public FantasyLeague simWeekFunction(ArrayList<TeamResult> teamResults, FantasyLeague weekTestLeague, ArrayList<MatchUp> seasonMatchUps, int weekNumber) {
 		
 		System.out.println("Week Number : " + weekNumber);
-		
 		// Assign FPS
 		for(TeamResult result:teamResults){
 			for(FantasyTeam team: weekTestLeague.getTeams()) {
@@ -20,12 +19,9 @@ public class TestWeekSimulationClass {
 		}
 	
 			TestRunGameClass test = new TestRunGameClass();
-			int gameNumber = 1;
-			test.testingRunGameFunction(weekTestLeague, weekNumber, gameNumber);
-			gameNumber = 2;
-			test.testingRunGameFunction(weekTestLeague,weekNumber,  gameNumber);
-			gameNumber = 3;
-			test.testingRunGameFunction(weekTestLeague,weekNumber,  gameNumber);
+			test.testingRunGameFunction(seasonMatchUps, weekTestLeague);
+			test.testingRunGameFunction(seasonMatchUps, weekTestLeague);
+			test.testingRunGameFunction(seasonMatchUps, weekTestLeague);
 		
 		return weekTestLeague;
 	}
