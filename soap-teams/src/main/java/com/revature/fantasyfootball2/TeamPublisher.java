@@ -1,4 +1,4 @@
-package com.revature.fantasyfootball;
+package com.revature.fantasyfootball2;
 
 import javax.xml.ws.Endpoint;
 
